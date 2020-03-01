@@ -3,8 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to BlueButtonPRO Docs's documentation!
-==============================================
+BlueButtonPRO Documentation
+===========================
+TODO: Homepage
 
 .. toctree::
    :maxdepth: 2
@@ -12,12 +13,3 @@ Welcome to BlueButtonPRO Docs's documentation!
    :caption: Table of Contents
 
    aad-users
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
