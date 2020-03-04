@@ -1,9 +1,36 @@
+.. _azure-active-directory-users:
+
 Azure Active Directory Users
 ============================
 External authentication with Azure Active Directory is supported. Simply click on the ``Azure Active
 Directory Login`` button.
 
 .. image:: _images/aad-login-btn.png
+
+This will direct the browser to Azure Active Directory where you will enter in your credentials.
+
+Application Consent
+-------------------
+Our system requests a few scopes/permissions from Azure Active Directory in addition to the standard
+``openid`` and ``profile`` scopes:
+
+User.Read
+   We request this permission so that we can read your first name, last name, email address, and determine
+   which groups you belong to.
+
+Directory.Read.All
+   We request this permission so that we can read the directory roles and directory group names assigned
+   to you. This is an administrator level permission and consent needs to be given by an administrator.
+
+When an administrator of the organization first logs into our system using their Azure Active Directory
+credentials, it is recommended to consent to these permissions on behalf of the organization as illustrated
+below:
+
+.. image:: _images/aad-consent-screen.png
+
+If this checkbox is not checked, users of your application that are not administrators will not be able
+to login. It is possible to not consent on behalf of the organization and individually give consent
+to each user of your organization. Consenting on behalf of the organization avoids this hassle.
 
 Registering Your Organization
 -----------------------------

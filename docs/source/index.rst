@@ -10,6 +10,14 @@ TODO: Homepage
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: Table of Contents
+   :caption: Getting Started
 
    aad-users
+   azure-api-linking
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: Additional Information
+
+   suggestions-and-bugs
