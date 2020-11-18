@@ -193,7 +193,7 @@ Sending the API request
 
 Now that all the details are ready, the following API request can be made:
 
-.. code-block:: 
+.. code-block:: console
 
    POST https://api.bluebuttonpro.com/Synapse
 
@@ -236,7 +236,7 @@ There are a few different methods to finding packages that have arrived for the 
 If you have the id of the Synapse package, you can retrieve it with the following request assuming the
 id is ``80835d88-ef93-483e-a21e-5c18d121aea7``:
 
-.. code-block::
+.. code-block:: console
 
    GET https://api.bluebuttonpro.com/Synapse/80835d88-ef93-483e-a21e-5c18d121aea7
 
@@ -245,7 +245,7 @@ id is ``80835d88-ef93-483e-a21e-5c18d121aea7``:
 If you would like to search for all packages that are for a recipient FHIR server, you can retrieve
 it with the following request assuming the FHIR server id is ``9d9ba380-a269-4b3f-b5fa-178f70d5432c``:
 
-.. code-block::
+.. code-block:: console
 
   GET https://api.bluebuttonpro.com/Synapse/fhirserver/9d9ba380-a269-4b3f-b5fa-178f70d5432c
 
@@ -254,7 +254,7 @@ it with the following request assuming the FHIR server id is ``9d9ba380-a269-4b3
 If you would like to search for all packages that are for a recipient person or a list of people, you
 can retrieve it with the following request:
 
-.. code-block::
+.. code-block:: console
 
    POST https://api.bluebuttonpro.com/people
 
@@ -292,7 +292,7 @@ The default value as you may have guessed is ``notExpiredAndNotImportedOnly``.
 
 This query parameter can be used like so, taking one of the examples from above:
 
-.. code-block::
+.. code-block:: console
 
    GET https://api.bluebuttonpro.com/Synapse/fhirserver/9d9ba380-a269-4b3f-b5fa-178f70d5432c?searchType=notExpiredOnly
 
@@ -311,7 +311,7 @@ can be ignored.
 
 Once this information has been obtained, a request can be constructed like so:
 
-.. code-block::
+.. code-block:: console
 
    POST https://api.bluebuttonpro.com/Synapse/356cf9d7-09bb-422a-b0e9-630e0cce293c/import
 
@@ -372,7 +372,7 @@ identifiers:
 The API will check to see if an existing encounter exists by either of the identifiers. The identifier
 check is ORed. Specifically, this is the FHIR query parameter that is executed for the search:
 
-.. code-block::
+.. code-block:: console
 
    ?identifier=http://www.example.com|value123,http://www.example.com|value456
 
@@ -392,7 +392,7 @@ and subsequently logged to a result bundle. The result bundle will look very sim
 To retrieve this bundle, it can be downloaded by sending the following request, assuming the id of the
 package is ``356cf9d7-09bb-422a-b0e9-630e0cce293c``:
 
-.. code-block::
+.. code-block:: console
 
    GET https://api.bluebuttonpro.com/BackgroundJobs/356cf9d7-09bb-422a-b0e9-630e0cce293c/importbundleresult
 
@@ -407,7 +407,7 @@ Downloading a package
 In some cases, it is desirable to download the bundle that is contained in a package without importing
 it. This can be done by making the following request, assuming the id of the package is ``356cf9d7-09bb-422a-b0e9-630e0cce293c``:
 
-.. code-block::
+.. code-block:: console
 
    POST https://api.bluebuttonpro.com/Synapse/356cf9d7-09bb-422a-b0e9-630e0cce293c/download
 
@@ -428,7 +428,7 @@ To delete a package, retrieve the id of the package by using one of the :ref:`fi
 Assuming the id of the package is ``356cf9d7-09bb-422a-b0e9-630e0cce293c``, the request can be constructed
 like so:
 
-.. code-block::
+.. code-block:: console
 
    DELETE http://api.bluebuttonpro.com/Synapse/356cf9d7-09bb-422a-b0e9-630e0cce293c
 
