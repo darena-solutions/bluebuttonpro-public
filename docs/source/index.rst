@@ -10,8 +10,20 @@ TODO: Homepage
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: Getting Started
+   :caption: Major Concepts
 
+   grants
+   person
+   organization-invite
+   synapse
+   background-jobs
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: Miscellaneous
+
+   definitions
    aad-users
    azure-api-linking
 
