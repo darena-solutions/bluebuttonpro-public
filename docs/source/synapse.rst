@@ -256,7 +256,7 @@ can retrieve it with the following request:
 
 .. code-block:: console
 
-   POST https://api.bluebuttonpro.com/people
+   POST https://api.bluebuttonpro.com/Synapse/people
 
    Content-Type: application/json
    Authorization: Bearer <token>
