@@ -15,6 +15,7 @@ TODO: Homepage
    grants
    person
    organization-invite
+   directory-listing
    synapse
    background-jobs
 
