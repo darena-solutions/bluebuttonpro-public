@@ -1,56 +1,19 @@
 Synapse
 =======
 
-Synapse is a functinality that allows resources for a specific patient to be shared with an organization
-or given to that patient in question themselves.
+Synapse is a functinality that allows resources for a specific patient to be shared with an organization,
+user, or person.
 
 .. _synapse-creating-a-package:
 
 Creating a package
 ------------------
 
-To create a Synapse package a FHIR bundle will need to be created first. This bundle should contain
-FHIR resources for one specific target patient. Patient resources are not allowed in this bundle. Next,
-you will need the id of the FHIR patient resource the bundle targets. This id is extracted from the
-**organization's** FHIR server where the patient resource exists. This should not be confused with the
-FHIR patient resource that exists in a :ref:`PFR <definitions-pfr>`.
+Creating a Synapse package is a little different based on the sending and receiving party type. But
+for all packages, a FHIR bundle will need to be created first. This bundle should contain FHIR resources
+for one specific target patient. The FHIR patient resource must exist in this bundle.
 
-In addition to the id of the FHIR patient resource, the id of the FHIR server where the patient exists
-in must also be included. The reason for this is because all FHIR servers are completely isolated from
-each other, which means that there is a small chance the same id for a patient can be assigned across
-FHIR servers.
-
-Whether the package is being sent to an organization or to a person needs to be defined.
-
-* When sending to a person:
-
-  * A security code will be required. This security code is hashed and stored in our system. The code
-    will be required to be entered in by a user that has access to the person before the package can
-    be imported by that user.
-  * The user must have accepted an :doc:`organization invite <organization-invite>` that binds a person
-    with a particular patient in the organization's FHIR server.
-
-* When sending to an organization:
-
-  * Security code is not required. If one is given, it will be ignored by the API.
-  * The user sending the package must have accepted an :doc:`organization invite <organization-invite>`
-    from the organization that binds a person to a particular patient in the organization's FHIR server.
-
-.. note::
-
-   The only direction in which packages can be sent is organization-to-person and person-to-organization.
-   Support for organization-to-organization or from person-to-person does not currently exist.
-
-Finally, an expiration date can be set for the package. If an expiration date is set, it will indicate
-that the package can no longer be imported after this expiration date. However, the package can still
-be viewed in searches depending on the type of search being performed. Review :ref:`synapse-finding-packages`
-for more information. If no expiration date is provided, the package doesn't expire and can be imported
-at any time.
-
-Example bundle
-^^^^^^^^^^^^^^
-
-The following is an example bundle. It contains a simple encounter, condition, and procedure.
+Below is an example of a bundle:
 
 .. code-block:: json
 
@@ -58,6 +21,18 @@ The following is an example bundle. It contains a simple encounter, condition, a
      "resourceType": "Bundle",
      "type": "batch",
      "entry": [
+       {
+         "fullUrl": "urn:uuid:444444",
+         "resource": {
+           "resourceType": "Patient",
+           "name": [
+             {
+               "family": "Doe",
+               "given": [ "Jane", "X" ]
+             }
+           ]
+         }
+       },
        {
          "fullUrl": "urn:uuid:111111",
          "resource": {
@@ -166,56 +141,163 @@ The following is an example bundle. It contains a simple encounter, condition, a
      ]
    }
 
-Notice how the patient ids are ``Patient/doesnotmatter`` this is because the package is bound to a specific
-patient. These references will all be updated to the id of the patient specified in the package **at
-the time of import.** It is important to note that the patient references do not get updated at the
-time of creating the package.
+Notice how the patient ids are ``Patient/doesnotmatter`` this is because at the time of :ref:`importing
+the package <synapse-importing-a-package>`, a patient id will need to be provided. All references in
+the bundle that can reference a patient will have their references updated to that specified patient
+id. :ref:`Read more here <synapse-importing-a-package>` to understand how importing a package works.
 
 In addition, regular references within the bundle as `specified in the FHIR specification <https://www.hl7.org/fhir/bundle.html#references>`_
 apply. In our example, this means that ``Condition.encounter.reference`` will be updated to reflect
-the new id that will be assigned to the encounter resource.
+the new id that will be assigned to the encounter resource. Conditional references are also resolved
+based on the specified FHIR server. This is accomplished by supplying the id of the FHIR server whenver
+a pakage is created, regardless of who the sending and receiving party is.
 
-.. warning::
+Once the bundle is available and a package is ready to be created, the following ways are different
+ways to send packages to other entities:
 
-   Only references within the bundle itself are guaranteed to resolve when working with Synapse packages.
-   If conditional references are given, they will be attempted to be resolved by using the :doc:`grants <grants>`
-   of the user that is performing the import. Remember that references are resolved **at the time of
-   import**, not at the time of creating the package. So permissions and grants are in effect by the
-   user that is doing the import.
+Organization-to-organization
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The reason references are applied at import time is to ensure data integrity. Packages can be sitting
-in a pending state ready to be imported. If references were resolved at the time of creating the package
-those references may no longer apply once the user decides to import the package. The resolved resource
-reference may have been deleted for example.
-
-Sending the API request
-^^^^^^^^^^^^^^^^^^^^^^^
-
-Now that all the details are ready, the following API request can be made:
+An organization can send packages to another organization, provided that they have an active :doc:`directory listing <directory-listing>`.
+The request to the API must be constructed like so:
 
 .. code-block:: console
 
    POST https://api.bluebuttonpro.com/Synapse
 
-   Authorization: Bearer <token>
    Content-Type: application/json
+   Authorization: Bearer <token>
 
    {
-     "isForOrganization": true, <-- REQUIRED
-     "description": "A small description", <-- REQUIRED,
-     "securityCode": "123456789", <-- OPTIONAL.. Required if 'isForOrganization' = false,
-     "fhirServerId": "9d9ba380-a269-4b3f-b5fa-178f70d5432c", <-- REQUIRED
-     "patientId": "d741dcee-57ff-4cfe-b4a5-02746cc9e327", <-- REQUIRED,
-     "expiresAt": null, <-- OPTIONAL
-     "bundle": <bundle resource as json object> <-- REQUIRED
+     "senderType": "Organization",
+     "receiverType": "Organization",
+     "receiverId": "19bde8b1-e670-40c7-8181-d75a900ce1b8",
+     "description": "A simple description of the package",
+     "fhirServerId": "17132b89-30bf-44a8-9f24-7d547b569eb1",
+     "bundle": { <bundle resource> }
    }
 
-Once the package is sent to the API, the API will validate the request and store the package for import.
-If the package is not for an organization and it is for a person, the API will take the FHIR server
-id and patient id provided in the request and find the :doc:`person resource <person>` that was bound
-to that patient in that FHIR server. This binding happens during the :doc:`organization invite <organization-invite>`
-process.
+You will have to specify that the sender type and receiver type are organizations. You will then have
+to include the id of the receiving organization in the ``receiverId`` field. A small description for
+the package will be required. A FHIR server id is also required. You will need to provide this so that
+the application can determine under which FHIR server the package is being sent on behalf of. This is
+used in various checks which include ensuring that the current logged in user has access to that FHIR
+server. In addition, this FHIR server is also used in resolving any conditional references that exist
+in the bundle.
 
+Finally, the bundle is also included in the request body in the ``bundle`` parameter.
+
+.. note::
+
+   The bundle should be included as JSON, not as a string of JSON.
+
+Organization-to-user
+^^^^^^^^^^^^^^^^^^^^
+
+An organization can send packages to a specific user. To do that, the request must be constructed like
+so:
+
+.. code-block:: console
+
+   POST https://api.bluebuttonpro.com/Synapse
+
+   Content-Type: application/json
+   Authorization: Bearer <token>
+
+   {
+     "senderType": "Organization",
+     "receiverType": "User",
+     "receiverId": "example_user@gmail.com",
+     "description": "A simple description of the package",
+     "fhirServerId": "17132b89-30bf-44a8-9f24-7d547b569eb1",
+     "securityCode": "123456",
+     "bundle": { <bundle resource> }
+   }
+
+The receiver type in this scenario should be set to ``"User"``, and the receiver id must be the email
+address of the user that is receiving the package. In this scenario, a security code is required. When
+the receiving user is ready to :ref:`import <synapse-importing-a-package>` or :ref:`download <synapse-downloading-a-package>`
+the package, they will need to provide the same security code before the package contents can be accessed.
+This security code is hashed and stored in our system.
+
+Organization-to-linked person
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A linked person is a person that has been associated with a FHIR patient resource in an organization's
+FHIR server. This is done by going through the :doc:`organization invite process <organization-invite>`.
+Once a link has been established between a person resource and a FHIR patient resource in the organization's
+FHIR server, the following request can be constructed:
+
+.. code-block:: console
+
+   POST https://api.bluebuttonpro.com/Synapse
+
+   Content-Type: application/json
+   Authorization: Bearer <token>
+
+  {
+     "senderType": "Organization",
+     "receiverType": "Person",
+     "description": "A simple description of the package",
+     "fhirServerId": "17132b89-30bf-44a8-9f24-7d547b569eb1",
+     "patientId": "1c1e3f94-99e5-4c67-a315-c5c16a958c41",
+     "securityCode": "123456",
+     "bundle": { <bundle resource> }
+   }
+
+This request is a little different from the others. Notice that a receiver id is not provided. This
+is because the receiver will ultimately be a person resource. The id of this person will be determined
+internally by the API. The API finds the id by using the values provided in ``fhirServerId`` and ``patientId``.
+The patient id must be the the id of the FHIR patient resource that exists in the **organization's**
+FHIR server. And of course the FHIR server id must be the id of the FHIR server where this patient exists.
+Remember that the patient id must reflect the id of the patient that was used when going through the
+:doc:`organization invite process <organization-invite>`.
+
+A security code is also required in this type of request. The receiving user that has access to this
+person will need to provide this security code before the package can be :ref:`imported <synapse-importing-a-package>`
+or :ref:`downloaded <synapse-downloading-a-package>`.
+
+Linked person-to-organization
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In the same way an organization can send to a linked person, a linked person can send a package back
+to an organization. This is how the request will look like:
+
+.. code-block:: console
+
+   POST https://api.bluebuttonpro.com/Synapse
+
+   Content-Type: application/json
+   Authorization: Bearer <token>
+
+  {
+     "senderType": "Person",
+     "receiverType": "Organization",
+     "description": "A simple description of the package",
+     "fhirServerId": "17132b89-30bf-44a8-9f24-7d547b569eb1",
+     "patientId": "1c1e3f94-99e5-4c67-a315-c5c16a958c41",
+     "bundle": { <bundle resource> }
+   }
+
+The request should look very similar compared to sending a package from an organization to a linked
+person. The sender and receiver type are flipped since the package is now being sent from the linked
+person to an organization. The FHIR server id and patient id have the same values. This is an important
+thing to understand. The FHIR server id and patient id when sending between an organization and linked
+person, regardless of who is the sender and who is the receiver, must always be the values that were
+used during the :doc:`organization invite process <organization-invite>`, and always reflects the ids
+belonging to the organization. This should not be confused with a :ref:`PFR <definitions-pfr>` id and
+the patient id in that :ref:`PFR <definitions-pfr>`.
+
+Limitations
+^^^^^^^^^^^
+
+* Users can never be the sender type.
+* Linked person to linked person messaging is not supported.
+
+Additional notes
+^^^^^^^^^^^^^^^^
+
+Once the package is sent to the API, the API will validate the request and store the package for import.
 If the request was successful, the API will return a ``200 OK`` response.
 
 The recipient(s) will be notified that a package has arrived and is ready for them to import. If the
@@ -231,7 +313,7 @@ package is going to an organization, all users of that organization will be noti
 Finding packages
 ------------------
 
-There are a few different methods to finding packages that have arrived for the current user.
+There are a couple different methods to finding packages.
 
 If you have the id of the Synapse package, you can retrieve it with the following request assuming the
 id is ``80835d88-ef93-483e-a21e-5c18d121aea7``:
@@ -242,43 +324,17 @@ id is ``80835d88-ef93-483e-a21e-5c18d121aea7``:
 
    Authorization: Bearer <token>
 
-If you would like to search for all packages that are for a recipient FHIR server, you can retrieve
-it with the following request assuming the FHIR server id is ``9d9ba380-a269-4b3f-b5fa-178f70d5432c``:
+To find all packages where the :ref:`current user is the recipient <synapse-intended-receiver>`, the
+following request can be made:
 
 .. code-block:: console
 
-  GET https://api.bluebuttonpro.com/Synapse/fhirserver/9d9ba380-a269-4b3f-b5fa-178f70d5432c
+   GET https://api.bluebuttonpro.com/Synapse/received
 
-  Authorization: Bearer <token>
-
-If you would like to search for all packages that are for a recipient person or a list of people, you
-can retrieve it with the following request:
-
-.. code-block:: console
-
-   POST https://api.bluebuttonpro.com/Synapse/people
-
-   Content-Type: application/json
    Authorization: Bearer <token>
 
-   [
-     "67003828-6267-4a47-9f7b-5e4ed659c06c",
-     "6ed03923-98e7-4f0a-bc55-5f328d26c19e",
-     "fa49baf8-c089-4a7c-98c1-3b2aad58f22b"
-   ]
-
-To clarify, to search for a single person id, the above request should be used with just one id in the
-array list.
-
-.. _synapse-user-intended-recipient:
-
-All the requests above assume that the user is the intended recipient of the package. This means that
-a package is available to the user if the package is for a target FHIR server and the user belongs in
-the organization that has access to this FHIR server, or the package is for a target person and the
-user has access to that person.
-
-For the two search methods that return a list of packages, it is possible to filter packages based on
-their current state. The query parameter ``searchType`` can be used with the following values:
+This request can be further filtered by a query parameter. The query parameter ``searchType`` can be
+used with the following values:
 
 * ``expiredOnly`` : Only retrieve the expired packages
 * ``notExpiredOnly`` : Only retrieve the packages that have not expired
@@ -290,13 +346,27 @@ their current state. The query parameter ``searchType`` can be used with the fol
 
 The default value as you may have guessed is ``notExpiredAndNotImportedOnly``.
 
-This query parameter can be used like so, taking one of the examples from above:
+This query parameter can be used like so:
 
 .. code-block:: console
 
-   GET https://api.bluebuttonpro.com/Synapse/fhirserver/9d9ba380-a269-4b3f-b5fa-178f70d5432c?searchType=notExpiredOnly
+   GET https://api.bluebuttonpro.com/Synapse/received?searchType=notExpiredOnly
 
    Authorization: Bearer <token>
+
+.. _synapse-intended-receiver:
+
+Intended receiver
+-----------------
+
+The current logged in user is the intended receiver if:
+
+* The package receiver is an organization and the user is part of that organization.
+* The package receiver is a user and the current logged in user is that user.
+* The package receiver is a person and the current logged in user has owner or administrator access
+  to that person.
+
+.. _synapse-importing-a-package:
 
 Importing a package
 -------------------
@@ -304,29 +374,44 @@ Importing a package
 To import a package, you must first find the id of the pakage to import. This can be retrieved by one
 of the finding methods described in :ref:`synapse-finding-packages`.
 
-Once you have the id of the package, you will need to determine if the package is for a person. If it
-is for a person, a security code will be required. This security code is set when first :ref:`creating
-the package <synapse-creating-a-package>`. If the package is for an organization, the security code
-can be ignored.
-
-Once this information has been obtained, a request can be constructed like so:
+If the package receiver is a user or person, a security code will be required. This security code was
+established when the package was :ref:`first created <synapse-creating-a-package>`. Finally, when importing
+a package, the API requires that the pakage be imported based on a FHIR patient resource. Thus, the
+id of that FHIR patient resource and the id of the FHIR server where this patient exists must be supplied.
+This patient id will then be used to overwrite all patient references in the package bundle to reflect
+that specified patient id. With these values, the request can be constructed like so, assuming the id
+of the package to import is ``347175fd-7b94-4a7d-8561-9478a4ea3192``:
 
 .. code-block:: console
 
-   POST https://api.bluebuttonpro.com/Synapse/356cf9d7-09bb-422a-b0e9-630e0cce293c/import
+   POST https://api.bluebuttonpro.com/Synapse/347175fd-7b94-4a7d-8561-9478a4ea3192/import
 
    Content-Type: application/json
    Authorization: Bearer <token>
 
    {
-     "id": "356cf9d7-09bb-422a-b0e9-630e0cce293c", <-- REQUIRED (Must match url id)
-     "securityCode": "123456" <-- OPTIONAL.. Required if package is for a person
+     "id": "347175fd-7b94-4a7d-8561-9478a4ea3192", <-- Must match id in URL
+     "patientId": "8ddcbd6f-705d-43f0-b09e-6668323c43c8",
+     "fhirServerId": "c7db9f2c-2768-4064-a107-0fbb5abfa5d4",
+     "securityCode": "123456", <-- Only required if receiver is user or person
    }
 
-Once the request comes in, the API will ensure the current user :ref:`has access to the package <synapse-user-intended-recipient>`
-and has sufficient permissions to import the package. If the package is being imported for a person,
-the user must have administrator level permissions to that person. If the package is being imported
-for an organization, the user must have write permissions to the target FHIR server of that organization.
+To re-iterate, when a package is being sent between an organization and linked person, regardless of
+who is the sender and receiver, the patient id and FHIR server id must be the ids used in the :doc:`organization
+invite process <organization-invite>`. These ids must be the ids used by the **organization** and MUST
+NOT reflect the :ref:`PFR <definitions-pfr>` id and the patient id in that :ref:`PFR <definitions-pfr>`.
+When importing for a person, the API will determine **internally** which :ref:`PFR <definitions-pfr>`
+and patient id in that PFR will need to be used.
+
+For all other messages types (such as organization to organization), the patient id can be any patient.
+
+.. note::
+
+   Note that when importing a package where the receiver is a person, a :ref:`PFR <definitions-pfr>`
+   must have been provisioned for that person. This also means that a package can only be imported to
+   a :ref:`PFR <definitions-pfr>` if the package receiver is a person.
+
+Once the request comes in, the API will ensure the current user :ref:`has access to the package <synapse-intended-receiver>`.
 If this check is successful, a :doc:`background process <background-jobs>` is initiated. Once the bakground
 process is initiated, the server returns a ``202 Accepted`` response. The client can then use the :doc:`background
 jobs <background-jobs>` endpoint to determine the status of this process.
@@ -335,18 +420,15 @@ jobs <background-jobs>` endpoint to determine the status of this process.
 
    After a package has been imported. It can no longer be imported again.
 
-During the background process, the API uses the FHIR server id that was resolved when :ref:`creating
-the package <synapse-creating-a-package>` as the target FHIR server to import the resources in the bundle
-into. What this means is that if the package is for an organization, the target FHIR server resolves
-to whatever was supplied when :ref:`creating the package <synapse-creating-a-package>`. However, if
-the package is for a person, the FHIR server that is resolved is the :ref:`PFR <definitions-pfr>` for
-that person. This does mean that if the package is for a person, a :ref:`PFR <definitions-pfr>` for
-that person must have been provisioned for the person before it can be imported.
+During the background process, each resource in the bundle is iterated over and all reference properties
+that can point to a patient will have their values updated to the id of the patient given in the :ref:`import
+request <synapse-importing-a-package>`. For example, if the patient id is ``123456`` and an encounter
+is currently being processed, the ``Encounter.subject`` property will be overwritten to ``{ "reference": "Patient/123456" }``.
 
-Each resource in the bundle is iterated over and all reference properties that can point to a
-patient will have their values updated to the id of the patient given when :ref:`creating the package
-<synapse-creating-a-package>`. For example, if the patient id is ``123456`` and an encounter is currently
-being processed, the ``Encounter.subject`` property will be overwritten to ``{ "reference": "Patient/123456" }``.
+.. note::
+
+   As a reminder, when importing a package for a person, the API will determine the :ref:`PFR <definitions-pfr>`
+   id and patient id to be used **internally**.
 
 Additionally, the API ensures duplicate resources are not created again in the FHIR server. This is
 done by checking the `identifier property <https://www.hl7.org/fhir/datatypes.html#Identifier>`_ of
@@ -401,6 +483,8 @@ package is ``356cf9d7-09bb-422a-b0e9-630e0cce293c``:
 This result bundle should indicate the result of each resource that was processed. If an error occurred,
 there will be an ``OperationOutcome`` resource detailing why this resource has failed to import.
 
+.. _synapse-downloading-a-package:
+
 Downloading a package
 ---------------------
 
@@ -414,7 +498,7 @@ it. This can be done by making the following request, assuming the id of the pac
    Authorization: Bearer <token>
 
 The API will respond with the bundle contained in the package as a file. The user :ref:`must have access
-<synapse-user-intended-recipient>` to the package in order to download it.
+<synapse-intended-receiver>` to the package in order to download it.
 
 .. note::
 
@@ -434,10 +518,7 @@ like so:
 
    Authorization: Bearer <token>
 
-The user :ref:`must have access <synapse-user-intended-recipient>` to the package and have sufficient
-permissions to delete the package. If the package is for a person, the user must have owner level permissions
-to that person. If the package is for an organization, the user must have write permissions to the target
-FHIR server of that organization.
+The user :ref:`must have access <synapse-intended-receiver>` to the package to delete the package.
 
 .. _synapse-signalr-notifications:
 
