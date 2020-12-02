@@ -376,11 +376,12 @@ of the finding methods described in :ref:`synapse-finding-packages`.
 
 If the package receiver is a user or person, a security code will be required. This security code was
 established when the package was :ref:`first created <synapse-creating-a-package>`. Finally, when importing
-a package, the API requires that the pakage be imported based on a FHIR patient resource. Thus, the
-id of that FHIR patient resource and the id of the FHIR server where this patient exists must be supplied.
-This patient id will then be used to overwrite all patient references in the package bundle to reflect
-that specified patient id. With these values, the request can be constructed like so, assuming the id
-of the package to import is ``347175fd-7b94-4a7d-8561-9478a4ea3192``:
+a package that is not being sent between an organization and linked person, the API requires that the
+package be imported based on a FHIR patient resource. Thus, the id of that FHIR patient resource and
+the id of the FHIR server where this patient exists must be supplied. This patient id will then be used
+to overwrite all patient references in the package bundle to reflect that specified patient id. With
+these values, the request can be constructed like so, assuming the id of the package to import is
+``347175fd-7b94-4a7d-8561-9478a4ea3192``:
 
 .. code-block:: console
 
@@ -391,19 +392,13 @@ of the package to import is ``347175fd-7b94-4a7d-8561-9478a4ea3192``:
 
    {
      "id": "347175fd-7b94-4a7d-8561-9478a4ea3192", <-- Must match id in URL
-     "patientId": "8ddcbd6f-705d-43f0-b09e-6668323c43c8",
-     "fhirServerId": "c7db9f2c-2768-4064-a107-0fbb5abfa5d4",
+     "patientId": "8ddcbd6f-705d-43f0-b09e-6668323c43c8", <-- NOT required if package is sent between an organization and linked person
+     "fhirServerId": "c7db9f2c-2768-4064-a107-0fbb5abfa5d4", <-- NOT required if package is sent between an organization and linked person
      "securityCode": "123456", <-- Only required if receiver is user or person
    }
 
-To re-iterate, when a package is being sent between an organization and linked person, regardless of
-who is the sender and receiver, the patient id and FHIR server id must be the ids used in the :doc:`organization
-invite process <organization-invite>`. These ids must be the ids used by the **organization** and MUST
-NOT reflect the :ref:`PFR <definitions-pfr>` id and the patient id in that :ref:`PFR <definitions-pfr>`.
-When importing for a person, the API will determine **internally** which :ref:`PFR <definitions-pfr>`
-and patient id in that PFR will need to be used.
-
-For all other messages types (such as organization to organization), the patient id can be any patient.
+To re-iterate, if the package is being sent between an organization and a linked person, the FHIR server
+id and patient is not required. This will be automatically determined internally by the API.
 
 .. note::
 
