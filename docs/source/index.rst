@@ -12,6 +12,7 @@ TODO: Homepage
    :hidden:
    :caption: Major Concepts
 
+   getting-started
    grants
    person
    organization-invite
