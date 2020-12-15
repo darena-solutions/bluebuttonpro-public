@@ -195,7 +195,7 @@ Once all this information has been acquired, a request can be made like so:
      "entityType": "User",
      "entityId": "example@gmail.com",
      "fhirServerId: "1eb93ff5-d72b-4556-a361-dc14d00bf1f8",
-     "role": "write",
+     "role": "read",
      "accessiblePatientId": "ab511915-625c-43d4-8b49-f6f44caa90a6"
    }
 
