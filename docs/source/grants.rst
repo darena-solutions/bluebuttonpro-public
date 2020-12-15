@@ -79,7 +79,8 @@ User
 Person
    Grants can be applied to :doc:`person <person>` resources. In this case, all users that have an association
    with this person will also have access to the FHIR server specified in the grant. Typically, grants
-   to person resources are created for :ref:`PFRs <definitions-pfr>`.
+   to person resources are created for restricted patient access to a FHIR server, this is done through
+   the :doc:`organization invite process <organization-invite>`.
 
 Organization
    When a grant is applied to an organization, all users of that organization will also have access
