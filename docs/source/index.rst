@@ -13,6 +13,7 @@ TODO: Homepage
    :caption: Major Concepts
 
    getting-started
+   header-values
    grants
    person
    organization-invite
