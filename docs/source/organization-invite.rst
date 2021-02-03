@@ -213,8 +213,9 @@ Once all the information is obtained, a request can be constructed:
 If the operation was successful, two different types of responses can be returned by the API. If the
 email address entered by the user does not already exist, then the account will be registered successfully
 and the user can then accept the invite and link the patient with their account by following the steps
-in :ref:`organization-invite-accepting-an-invite-user-email-address`. This is what the response from
-the api looks like:
+in :ref:`organization-invite-accepting-an-invite-user-email-address`. The invite is now associated with
+that user's email address so only that user can accept the invite. This is what the response from the
+api looks like:
 
 .. code-block:: json
 
@@ -254,6 +255,8 @@ In this case, the client should display a message or screen to the user indicati
 exists and that they will need to login with that account before they can accept the invite. Once the
 user has logged in, the steps explained in :ref:`organization-invite-accepting-an-invite-security-question-and-answer`
 should be followed to accept the invite and link the patient to the account.
+
+.. _organization-invite-retrieving-invites-for-a-user:
 
 Retrieving Invites For a User
 -----------------------------
@@ -387,12 +390,141 @@ then the response will contain an ``acceptedOn`` property:
 
 If the invite has not yet been accepeted, this property will not be included.
 
+.. _organization-invite-accepting-an-invite-person-association:
+
+Accpeting an Invite - Person Association
+----------------------------------------
+
+To accept an invite, a :doc:`person <person>` resource is required. This person will then be associated
+with read-only permissions to the patient in the invite. Each invite will have a ``patient`` object
+which is a standard `FHIR patient resource <https://www.hl7.org/fhir/patient.html>`_. This patient object
+can be used to :ref:`create a new person <person-creating-a-person>`. It is also possible to associate
+the invite to an existing person if needed. The client should display a message or screen to the user
+indicating which they prefer.
+
+
 .. _organization-invite-accepting-an-invite-user-email-address:
 
 Accepting an Invite - User Email Address
 ----------------------------------------
 
+Accepting an invite using an email address is achievable if the invite was :ref:`created using the user's
+email address <organization-invite-creating-an-invite-user-email-address>`, or if the invite was :ref:`created
+using a security question & answer <organization-invite-creating-an-invite-security-question-and-answer>`
+and the user was able to successfully register a new account. If the invite was :ref:`created using
+a security question & answer <organization-invite-creating-an-invite-security-question-and-answer>`
+and the user could not register a new account because the email address they provided already exists,
+then the user can only accept the invite following the steps in :ref:`organization-invite-accepting-an-invite-security-question-and-answer`.
+
+In both of these situations, the user must be logged in to accept the invite. To begin, the invite to
+accept must be determined. This can be typically done by displaying the list of invites that the user
+can accept by :ref:`retrieving them <organization-invite-retrieving-invites-for-a-user>` and then allowing
+the user to select which invite to accept.
+
+A person will need to be selected which is explained :ref:`here <organization-invite-accepting-an-invite-person-association>`.
+Once a person has been selected a request will need to be sent to the following endpoint to accept the
+invite, assuming the id of the invite is ``f05df920-b51e-4da2-b7a6-9eebc67e7059``: https://api.bluebuttonpro.com/OrganizationInvites/f05df920-b51e-4da2-b7a6-9eebc67e7059/accept.
+
+The endpoint accepts the following parameters:
+
+id - **REQUIRED**
+   This is the id of the invite.
+
+personId - **REQUIRED**
+   This is the id of the person to associate the patient in the invite with.
+
+The request can be constructed like this:
+
+.. code-block:: console
+  
+   POST https://api.bluebuttonpro.com/OrganizationInvites/f05df920-b51e-4da2-b7a6-9eebc67e7059/accept
+
+   Content-Type: application/json
+   Authorization: Bearer <token>
+
+   {
+      "id": "f05df920-b51e-4da2-b7a6-9eebc67e7059",
+      "personId": "2e755707-1d7b-435b-9ae7-32fcddb87fdb"
+   }
+
+If the operation was successful, a :doc:`grant <grants>` that indicates that the person now has read-only
+access to the patient in the invite should be returned by the API.
+
 .. _organization-invite-accepting-an-invite-security-question-and-answer:
 
 Accepting an Invite - Security Question & Answer
 ------------------------------------------------
+
+If an invite was :ref:`created using a security question & answer <organization-invite-creating-an-invite-security-question-and-answer>`
+and the user could not register a new account because the email address they want to use already exists
+in the system, then they can accept the invite by logging in to that account and then providing the
+security question and answer that identifies the invite.
+
+To start, the client should display a screen to the user asking for the security code that they received
+when the invite was :ref:`first created <organization-invite-creating-an-invite-security-question-and-answer>`.
+Once the user enters in this information, the client should then make a call to the API to retrieve
+the security question by constructing the following request, assuming the security code is ``ABC12345``:
+
+.. code-block:: console
+
+   GET https://api.bluebuttonpro.com/OrganizationInvites/security-details/code/ABC12345/security-question
+
+Once the secrity question is obtained, it should be displayed to the user. The user then enters in the
+security answer. Once that is complete, the client can then retrieve the invite by calling the endpoint:
+https://api.bluebuttonpro.com/OrganizationInvites/security-details/find. This endpoint accepts the following
+parameters:
+
+securityCode - **REQUIRED**
+   The security code entered by the user that identifies the invite.
+
+securityAnswer - **REQUIRED**
+   The security answer entered by the user that identifies the invite.
+
+The request should look like this:
+
+.. code-block:: console
+
+   POST https://api.bluebuttonpro.com/OrganizationInvites/security-details/find
+
+   Content-Type: application/json
+   Authorization: Bearer <token>
+
+   {
+      "securityCode": "ABC12345",
+      "securityAnswer": "Charlie"
+   }
+
+The API will then return the invite if the security answer matches.
+
+To accept the invite, a person will need to be selected. More information on that is explained :ref:`here
+<organization-invite-accepting-an-invite-person-association>`. Once a person has been selected, a call
+to the following endpoint will need to be performed: https://api.bluebuttonpro.com/OrganizationInvites/security-details/code/ABC12345/accept.
+
+This endpoint accepts the following parameters:
+
+securityCode - **REQUIRED**
+   The security code entered by the user that identifies the invite.
+
+securityAnswer - **REQUIRED**
+   The security answer entered by the user that identifies the invite.
+
+personId - **REQUIRED**
+   This is the id of the person to associate the patient in the invite with.
+
+The request should look like this:
+
+.. code-block:: console
+
+   POST https://api.bluebuttonpro.com/OrganizationInvites/security-details/code/ABC12345/accept
+
+   Content-Type: application/json
+   Authorization: Bearer <token>
+
+   {
+      "securityCode": "ABC12345",
+      "securityAnswer": "Charlie",
+      "personId": "2e755707-1d7b-435b-9ae7-32fcddb87fdb"
+   }
+
+If the operation was successful, the API will return a :doc:`grant <grants>` that indicates that the
+person now has read-only access to the patient in the invite should be returned by the API.
