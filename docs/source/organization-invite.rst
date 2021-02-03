@@ -170,7 +170,7 @@ securityAnswer - **REQUIRED**
    This is the answer the user has provided for the given security question.
 
 user - **REQUIRED**
-   This value contaisn the user details needed to register and create the account.
+   This value contains the user details needed to register and create the account.
 
    user.email - **REQUIRED**
       The email address of the user
@@ -271,7 +271,7 @@ To retrieve all the invites for the current logged in user, the following reques
 
 This will return all invites that were :ref:`created using the user's email address <organization-invite-creating-an-invite-user-email-address>`,
 and it will contain all invites that were :ref:`created using a security question & answer <organization-invite-creating-an-invite-security-question-and-answer>`
-where the user was able to succesfully register a new account using the security question and answer.
+where the user was able to successfully register a new account using the security question and answer.
 
 This call will not contain any invites that were :ref:`created using a security question & answer <organization-invite-creating-an-invite-security-question-and-answer>`
 and the user could not register a new account because the account they specified already exists. This
@@ -388,11 +388,11 @@ then the response will contain an ``acceptedOn`` property:
      "patient": { }
    }
 
-If the invite has not yet been accepeted, this property will not be included.
+If the invite has not yet been accepted, this property will not be included.
 
 .. _organization-invite-accepting-an-invite-person-association:
 
-Accpeting an Invite - Person Association
+Accepting an Invite - Person Association
 ----------------------------------------
 
 To accept an invite, a :doc:`person <person>` resource is required. This person will then be associated
@@ -469,7 +469,7 @@ the security question by constructing the following request, assuming the securi
 
    GET https://api.bluebuttonpro.com/OrganizationInvites/security-details/code/ABC12345/security-question
 
-Once the secrity question is obtained, it should be displayed to the user. The user then enters in the
+Once the security question is obtained, it should be displayed to the user. The user then enters in the
 security answer. Once that is complete, the client can then retrieve the invite by calling the endpoint:
 https://api.bluebuttonpro.com/OrganizationInvites/security-details/find. This endpoint accepts the following
 parameters:
@@ -527,4 +527,4 @@ The request should look like this:
    }
 
 If the operation was successful, the API will return a :doc:`grant <grants>` that indicates that the
-person now has read-only access to the patient in the invite should be returned by the API.
+person now has read-only access to the patient in the invite.

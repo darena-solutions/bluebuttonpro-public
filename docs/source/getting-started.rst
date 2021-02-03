@@ -23,7 +23,7 @@ be created for those scenarios.
 Creating an Application
 -----------------------
 
-Once the inital setup is complete with our sales team, you will now need to create an application/client
+Once the initial setup is complete with our sales team, you will now need to create an application/client
 that will interact with the BlueButtonPRO API. We have built a UI to make this process easier and is
 available at https://developer.darenasolutions.com.
 
@@ -59,7 +59,7 @@ Client Type
    and accessible by the user. This type of application is a **Public** application.
 
    If the client is a web application where the source code is hosted on a server and not accessible
-   by users, then this type o fapplication is a **Private** application. In this situation, a client
+   by users, then this type of application is a **Private** application. In this situation, a client
    secret will be generated for the application.
 
    If the registration type is **Bulk Export**, then this value will remain **Public**.

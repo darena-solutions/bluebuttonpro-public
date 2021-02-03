@@ -1,7 +1,7 @@
 Synapse
 =======
 
-Synapse is a functinality that allows resources for a specific patient to be shared with an organization,
+Synapse is a functionality that allows resources for a specific patient to be shared with an organization,
 user, or person.
 
 .. _synapse-creating-a-package:
@@ -149,8 +149,8 @@ id. :ref:`Read more here <synapse-importing-a-package>` to understand how import
 In addition, regular references within the bundle as `specified in the FHIR specification <https://www.hl7.org/fhir/bundle.html#references>`_
 apply. In our example, this means that ``Condition.encounter.reference`` will be updated to reflect
 the new id that will be assigned to the encounter resource. Conditional references are also resolved
-based on the specified FHIR server. This is accomplished by supplying the id of the FHIR server whenver
-a pakage is created, regardless of who the sending and receiving party is.
+based on the specified FHIR server. This is accomplished by supplying the id of the FHIR server whenever
+a package is created, regardless of who the sending and receiving party is.
 
 Once the bundle is available and a package is ready to be created, the following ways are different
 ways to send packages to other entities:
@@ -371,7 +371,7 @@ The current logged in user is the intended receiver if:
 Importing a package
 -------------------
 
-To import a package, you must first find the id of the pakage to import. This can be retrieved by one
+To import a package, you must first find the id of the package to import. This can be retrieved by one
 of the finding methods described in :ref:`synapse-finding-packages`.
 
 If the package receiver is a user or person, a security code will be required. This security code was
@@ -407,7 +407,7 @@ id and patient is not required. This will be automatically determined internally
    a :ref:`PFR <definitions-pfr>` if the package receiver is a person.
 
 Once the request comes in, the API will ensure the current user :ref:`has access to the package <synapse-intended-receiver>`.
-If this check is successful, a :doc:`background process <background-jobs>` is initiated. Once the bakground
+If this check is successful, a :doc:`background process <background-jobs>` is initiated. Once the background
 process is initiated, the server returns a ``202 Accepted`` response. The client can then use the :doc:`background
 jobs <background-jobs>` endpoint to determine the status of this process.
 
@@ -459,7 +459,7 @@ If one resource is found, that resource is updated with the new resource to be i
 
 If more than one resource is found, an error is logged and written in the result bundle.
 
-Infering import result
+Inferring import result
 ----------------------
 
 In the process of importing a package, the result of processing each resource in the bundle is tracked
@@ -499,7 +499,7 @@ The API will respond with the bundle contained in the package as a file. The use
 
    You can always download the contents of a package even if it has already been imported or has expired.
 
-Deleting a packge
+Deleting a package
 -----------------
 
 To delete a package, retrieve the id of the package by using one of the :ref:`find methods <synapse-finding-packages>`.

@@ -31,7 +31,7 @@ Once the request is sent, the API will ensure that the current user belongs to t
 The listing will be created in an active state if this check is successful and a ``201 Created`` response
 will be returned from the API.
 
-Once at least one listing is created for an organization, they can now recieve Synapse packages from
+Once at least one listing is created for an organization, they can now receive Synapse packages from
 a different organization.
 
 .. _directory-listing-searching-for-listings:

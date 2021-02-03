@@ -43,7 +43,7 @@ read
 
 .. _grants-inherited-roles:
 
-Inerited roles
+Inherited roles
 --------------
 
 There are a couple situations where the role is inherited. If a grant is given to an organization, then
@@ -112,7 +112,7 @@ ExternalApplication
 Default grants
 --------------
 
-There are some situations where a grant is created by defult:
+There are some situations where a grant is created by default:
 
 * When a FHIR server is provisioned for an organization by a member of Darena Solutions, a grant is
   created by default that links that organization with the FHIR server with an ``owner`` role. This
