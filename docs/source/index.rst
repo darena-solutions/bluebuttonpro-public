@@ -5,7 +5,7 @@
 
 BlueButtonPRO Documentation
 ===========================
-TODO: Homepage
+TODO: Homepage, TOC
 
 .. toctree::
    :maxdepth: 2
