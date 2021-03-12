@@ -295,6 +295,16 @@ The response of the API should contain an array of organization invites that the
      },
    ]
 
+It is possible to filter the invites so that only open invites are returned instead of all invites.
+To do that, simply add the ``openOnly`` query parameter to the endpoint and set its value to ``true``.
+EG:
+
+.. code-block:: console
+
+   GET https://api.bluebuttonpro.com/OrganizationInvites/received?openOnly=true
+
+   Authorization: Bearer <token>
+
 Searching For Sent Invites
 --------------------------
 
@@ -339,6 +349,17 @@ be determined. This endpoint will return all invites regardless of whether they 
 the user's email address <organization-invite-creating-an-invite-user-email-address>` or :ref:`created
 using a security question & answer <organization-invite-creating-an-invite-security-question-and-answer>`,
 and regardless of whether the user has interacted with any of the invites.
+
+It is possible to filter the invites so that only open invites are returned instead of all invites.
+To do that, simply add the ``openOnly`` query parameter to the endpoint and set its value to ``true``.
+EG:
+
+.. code-block:: console
+
+   GET https://api.bluebuttonpro.com/OrganizationInvites/sent?openOnly=true&page=1&count=15
+
+   Authorization: Bearer <token>
+   FhirServerId-Context: d9c34349-3e81-41bf-8113-27bc01dcaa9d
 
 .. _organization-invite-finding-an-invite-by-id:
 

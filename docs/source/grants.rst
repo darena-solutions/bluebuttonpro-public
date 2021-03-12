@@ -44,7 +44,7 @@ read
 .. _grants-inherited-roles:
 
 Inherited roles
---------------
+---------------
 
 There are a couple situations where the role is inherited. If a grant is given to an organization, then
 all users of that organization will inherit the ``write`` role. This means that by default, all users

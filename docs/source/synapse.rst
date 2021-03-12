@@ -460,7 +460,7 @@ If one resource is found, that resource is updated with the new resource to be i
 If more than one resource is found, an error is logged and written in the result bundle.
 
 Inferring import result
-----------------------
+-----------------------
 
 In the process of importing a package, the result of processing each resource in the bundle is tracked
 and subsequently logged to a result bundle. The result bundle will look very similar to the FHIR specification's
@@ -500,7 +500,7 @@ The API will respond with the bundle contained in the package as a file. The use
    You can always download the contents of a package even if it has already been imported or has expired.
 
 Deleting a package
------------------
+------------------
 
 To delete a package, retrieve the id of the package by using one of the :ref:`find methods <synapse-finding-packages>`.
 

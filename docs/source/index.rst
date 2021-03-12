@@ -13,6 +13,7 @@ TODO: Homepage, TOC
    :caption: Major Concepts
 
    getting-started
+   environments
    header-values
    grants
    person
