@@ -2,8 +2,8 @@
 
 Azure Active Directory Users
 ============================
-External authentication with Azure Active Directory is supported. Simply click on the ``Azure Active
-Directory Login`` button.
+External authentication with Azure Active Directory is supported. Simply click on the ``Microsoft``
+button.
 
 .. image:: _images/aad-login-btn.png
 
@@ -41,11 +41,11 @@ We determine this by checking the "Global administrator" built-in role in Azure 
 .. image:: _images/aad-global-admin-role.png
 
 This role should be applied by default to the user that first created the directory. A user with this
-role must login by clicking the ``Azure Active Directory Login`` button. Once the user has logged in the
-browser will be redirected back to our system. Our system will determine from the login that an organization
-has not yet been created. This will redirect the browser to the organization registration form. The
-form will be pre-populated with various information including the name, phone, and address details.
-The user information will also be displayed.
+role must login by clicking the ``Microsoft`` button. Once the user has logged in the browser will be
+redirected back to our system. Our system will determine from the login that an organization has not
+yet been created. This will redirect the browser to the organization registration form. The form will
+be pre-populated with various information including the name, phone, and address details. The user information
+will also be displayed.
 
 .. important::
    Special attention is required for the ``Auto Activation Groups`` section. Please read
@@ -87,9 +87,9 @@ What this tells our system is that if any user that is logging in belongs to *ei
 ``IT Personnel``, or ``Application Members``, the user will be approved and is logged in.
 
 .. note::
-   This check is not performed again after the first time our system approves the login for a user.
-   This means that if the user is removed from the group at a future time, the user can still login.
-   Currently, there are no plans to change this default behavior.
+   This check is performed after every sign-in from the user. This means that if the user is later removed
+   from the group, they will be unable to login once again until they are added back to one of those
+   groups.
 
 Separate Profiles
 -----------------
@@ -102,5 +102,5 @@ profile. All of our products will still display your old first name.
 To update the profile in our system, you will need to navigate to `<https://identity-manager.darenasolutions.com>`_.
 
 .. note::
-   Syncing of these profiles is currently being worked on. Please `click here <https://github.com/darena-solutions/bluebuttonpro-public/issues/1>`_
+   Syncing of these profiles has been acknowledged. Please `click here <https://github.com/darena-solutions/bluebuttonpro-public/issues/1>`_
    to keep up-to-date on the issue.
