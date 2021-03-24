@@ -99,7 +99,7 @@ This is the location of your FHIR server (without the ``/metadata`` at the end).
 as you will need to supply this to BlueButtonPRO in the next section.
 
 Click on the **Authentication** item in the navigation pane. Ensure that the **Audience** value is the
-same as your FHIR server endpoint.
+same as your FHIR server endpoint (without the ``/metadata`` at the end).
 
 .. _bluebuttonpro-configuration:
 
