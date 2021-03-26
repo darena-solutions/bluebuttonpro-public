@@ -12,7 +12,7 @@ Roles
 
 A grant to a FHIR server also includes a role:
 
-owner
+Owner
    This role indicates that the specified :ref:`entity <grants-entities>` owns the FHIR server specified
    in the grant. There can only be one owner of a FHIR server. Owners have the highest privileges to
    a FHIR server. They can perform any operations from all other roles including deleting the FHIR server.
@@ -27,19 +27,26 @@ owner
       member at this time. We are looking into how we can change this.
       
 
-admin
+Administrator
    Administrators can perform a broad range of operations on a FHIR server. Typically, it is the same
-   as the ``write`` role, however, there are some calls in the API that are restricted to just administrators
+   as the ``Write`` role, however, there are some calls in the API that are restricted to just administrators
    and owners. Creating additional grants to the FHIR server requires an administrator for example.
 
-write
+Write
    This role allows the user to read and write data from the FHIR server. :doc:`Organization invites
    <organization-invite>` and other various functionality that requires writes can also be performed
    with this role.
 
-read
-   This is currently the lowest permission and only allows reads on the FHIR server. Any create, update,
-   or delete operation is forbidden with this role.
+Read
+   This role only allows reads on the FHIR server. Any create, update, or delete operation is forbidden
+   with this role.
+
+Synapse
+   This is currently the lowest permission among all the roles. It is a very specific role that only
+   allows an entity to send :doc:`synapse packages <synapse>` to the organization that owns the FHIR
+   server listed in the grant. The entity that has a grant with this role will not be able to perform
+   any action on the listed FHIR server, not even reads. It should be noted that the other roles allow
+   the entity to send :doc:`synapse packages <synapse>` as well.
 
 .. _grants-inherited-roles:
 
@@ -115,14 +122,14 @@ Default grants
 There are some situations where a grant is created by default:
 
 * When a FHIR server is provisioned for an organization by a member of Darena Solutions, a grant is
-  created by default that links that organization with the FHIR server with an ``owner`` role. This
+  created by default that links that organization with the FHIR server with an ``Owner`` role. This
   means that all users of that organization can now access that FHIR server and they have the :ref:`inherited 
-  role <grants-inherited-roles>` of ``write``.
+  role <grants-inherited-roles>` of ``Write``.
 
 * When a user accepts an :doc:`organization invite <organization-invite>` for a person, a grant is created
-  automatically linking that person with the organization's FHIR server with a ``read`` role. In addition
-  the grant will :ref:`limit access to the patient resource <grants-restrict-access-to-patient>` that
-  was specified in the organization invite.
+  automatically linking that person with the organization's FHIR server with a ``Read`` or ``Synapse`` role.
+  In addition the grant will :ref:`limit access to the patient resource <grants-restrict-access-to-patient>`
+  that was specified in the organization invite.
 
 * When a :ref:`PFR <definitions-pfr>` is provisioned for a person resource, all users that have access
   to that person will now have a grant to that :ref:`PFR <definitions-pfr>` with whatever role the user
@@ -136,14 +143,16 @@ Restrict access to patient
 
 It is possible to restrict an entity to a specific patient in a FHIR server. Review the process of :ref:`creating
 a grant <grants-creating-grants>` to understand how to do this. If this is done, it will indicate that
-the entity has ``read`` permissions only for that particular patient. This indicates that only this
-patient and any related resources for that patient (EG: encounters, medications, etc.) can be read,
-and nothing else. For resources that are not patient-specific (EG: questionnaires, value sets, etc.)
-these are still accessible.
+the entity has ``Read`` or ``Synapse`` permissions only for that particular patient. If the entity has
+``Read`` permissions, it indicates that only this patient and any related resources for that patient
+(EG: encounters, medications, etc.) can be read, and nothing else. For resources that are not patient-specific
+(EG: questionnaires, value sets, etc.) these are still accessible. If the entity has ``Synapse`` permissions,
+it indicates that the entity can create :doc:`synapse packages <synapse>` that contains FHIR resources
+for only that particular patient.
 
 When accepting an :doc:`organization invite <organization-invite>`, these types of grants are created
-automatically granting ``read`` access to the FHIR server to the specified entity with restricted access
-to a single patient.
+automatically granting ``Read`` or ``Synapse`` permissions to the FHIR server to the specified entity
+with restricted access to a single patient.
 
 .. _grants-creating-grants:
 
@@ -168,7 +177,7 @@ fhirServerId
 
    .. note::
 
-      Only users with an ``owner`` or ``admin`` role to the FHIR server can create additional grants
+      Only users with an ``Owner`` or ``Administrator`` role to the FHIR server can create additional grants
       for the server.
 
 role
@@ -180,7 +189,8 @@ accessiblePatientId
 
    .. note::
 
-      If creating a grant with restricted patient access, the ``role`` **must** be set to ``read``.
+      If creating a grant with restricted patient access, the ``role`` **must** be set to ``Read`` or
+      ``Synapse``.
 
 Once all this information has been acquired, a request can be made like so:
 
@@ -195,7 +205,7 @@ Once all this information has been acquired, a request can be made like so:
      "entityType": "User",
      "entityId": "example@gmail.com",
      "fhirServerId: "1eb93ff5-d72b-4556-a361-dc14d00bf1f8",
-     "role": "read",
+     "role": "Read",
      "accessiblePatientId": "ab511915-625c-43d4-8b49-f6f44caa90a6"
    }
 
@@ -210,14 +220,14 @@ respectively.
 Limitations
 ^^^^^^^^^^^
 
-* There can only exist one ``owner`` of a FHIR server. This is applied internally. When an organizational
+* There can only exist one ``Owner`` of a FHIR server. This is applied internally. When an organizational
   FHIR server is provisioned by a member of Darena Solutions, the organization is marked as the owner
   internally. When a :ref:`PFR <definitions-pfr>` is provisioned, the user that created the PFR is marked
-  as the owner internally. Thus, grants cannot be created manually with the ``owner`` role.
+  as the owner internally. Thus, grants cannot be created manually with the ``Owner`` role.
 
 * Only owners and administrators of a FHIR server can create additional grants.
 
-* If creating a grant with restricted patient access, then ``role`` must be set to ``read``.
+* If creating a grant with restricted patient access, then ``role`` must be set to ``Read`` or ``Synapse``.
 
 * Only a member of Darena Solutions can create grants for an ``Application`` or ``ExternalApplication``.
 
@@ -236,12 +246,12 @@ To retrieve all grants for the current user, a request can be made to the follow
 
 This will return all grants for the user, including grants with the inherited role. As an example, suppose
 a user belongs to ``orgA``. Then a grant will be returned that indicates that this user has a grant
-to the organization's FHIR server with the ``write`` role. Suppose now that this user was also assigned
-as an administrator and a grant to the organization's FHIR server with the ``admin`` role for that user
-was created. This grant will also be returned in this call. Thus two grants will be returned, but the
-grant with the ``admin`` role will take precedence when executing endpoints in the BlueButtonPRO API.
-In short, specific grants to entities will always take precedence over inherited roles. Here is an example
-of such a scenario:
+to the organization's FHIR server with the ``Write`` role. Suppose now that this user was also assigned
+as an administrator and a grant to the organization's FHIR server with the ``Administrator`` role for
+that user was created. This grant will also be returned in this call. Thus two grants will be returned,
+but the grant with the ``Adiministrator`` role will take precedence when executing endpoints in the
+BlueButtonPRO API. In short, specific grants to entities will always take precedence over inherited
+roles. Here is an example of such a scenario:
 
 .. code-block:: json
 
@@ -250,7 +260,7 @@ of such a scenario:
       "grantId": "f0884c2f-078f-4118-834c-9b30af68b289",
       "entityType": "Organization",
       "entityId": "orgA",
-      "role": "write",
+      "role": "Write",
       "roleIsInherited": true,
       "fhirServerId": "7ba38f5d-3e98-47ca-82dd-48865d84aabd",
       "description": "FHIR server description",
@@ -264,7 +274,7 @@ of such a scenario:
       "grantId": "0fb7ccf5-1ff7-45f2-b3a4-cb01c4e7040c",
       "entityType": "User",
       "entityId": "8d6c69f1-08d0-4eaa-9719-55db4405bf8c",
-      "role": "admin",
+      "role": "Administrator",
       "roleIsInherited": false,
       "fhirServerId": "7ba38f5d-3e98-47ca-82dd-48865d84aabd",
       "description": "FHIR server description",
@@ -295,7 +305,7 @@ differing value will be ``accessiblePatientId``. Here is an example for two rest
       "grantId": "78c63883-583a-46e8-967d-53013aaa3f07",
       "entityType": "Person",
       "entityId": "1e1d0ad7-e473-401b-ab6e-69e3da587fce",
-      "role": "read",
+      "role": "Read",
       "roleIsInherited": true,
       "fhirServerId": "7ba38f5d-3e98-47ca-82dd-48865d84aabd",
       "description": "FHIR server description",
@@ -310,7 +320,7 @@ differing value will be ``accessiblePatientId``. Here is an example for two rest
       "grantId": "26d330b0-ba9a-44ba-afa2-7102cc109fdb",
       "entityType": "Person",
       "entityId": "1e1d0ad7-e473-401b-ab6e-69e3da587fce",
-      "role": "read",
+      "role": "Read",
       "roleIsInherited": true,
       "fhirServerId": "7ba38f5d-3e98-47ca-82dd-48865d84aabd",
       "description": "FHIR server description",

@@ -148,9 +148,8 @@ id. :ref:`Read more here <synapse-importing-a-package>` to understand how import
 
 In addition, regular references within the bundle as `specified in the FHIR specification <https://www.hl7.org/fhir/bundle.html#references>`_
 apply. In our example, this means that ``Condition.encounter.reference`` will be updated to reflect
-the new id that will be assigned to the encounter resource. Conditional references are also resolved
-based on the specified FHIR server. This is accomplished by supplying the id of the FHIR server whenever
-a package is created, regardless of who the sending and receiving party is.
+the new id that will be assigned to the encounter resource. Conditional references when working with
+synapse is not supported at this time.
 
 Once the bundle is available and a package is ready to be created, the following ways are different
 ways to send packages to other entities:

@@ -23,6 +23,13 @@ securityAnswer - **REQUIRED**
    they are ready to register an account. See :ref:`organization-invite-registering-a-user-by-security-question-and-answer`
    for more information.
 
+.. _organization-invite-is-synapse-role:
+
+isSynapseRole - **REQUIRED**
+   Indicates if the grant that is created after the organization invite is accepted should have a role
+   of ``Synapse`` or ``Read``. This is ``false`` by default which indicates a role of ``Read`` will
+   be created by default. Review :ref:`grant roles <grants-roles>` for more information.
+
 .. _organization-invite-accessible-patient-id:
 
 accessiblePatientId
@@ -63,7 +70,8 @@ Once all this information is obtained, a request can be constructed:
    {
      "securityQuestion": "What is the name of your first pet?",
      "securityAnswer": "Charlie",
-     "accessiblePatientId: "d1f84545-5981-4250-80d6-a99f8be0d716"
+     "accessiblePatientId: "d1f84545-5981-4250-80d6-a99f8be0d716",
+     "isSynapseRole": false
    }
 
 If the operation was successful, the API will return a response that contains an 8 character alpha-numeric
@@ -75,10 +83,11 @@ security code along with a few other details:
      "id": "f05df920-b51e-4da2-b7a6-9eebc67e7059",
      "createdOn": "01-01-2021",
      "fhirServerId": "d9c34349-3e81-41bf-8113-27bc01dcaa9d",
+     "fhirServerName": "Good Health Clinic",
+     "isSynapseRole": false,
      "securityCode": "ABC12345",
      "securityQuestion": "What is the name of your first pet?",
-     "accessiblePatientId": "d1f84545-5981-4250-80d6-a99f8be0d716",
-     "fhirServerName": "Good Health Clinic",
+     "accessiblePatientId": "d1f84545-5981-4250-80d6-a99f8be0d716",     
      "patient": { }
    }
 
@@ -106,6 +115,9 @@ lastName - **REQUIRED**
    This is the last name of the user. If a user with the given email address is not found in our system,
    then a new user will be registered with this last name. If the user is found, this parameter is
    ignored.
+
+isSynapseRole - **REQUIRED**
+   see :ref:`isSynapseRole <organization-invite-is-synapse-role>`
 
 accessiblePatientId
    See :ref:`accessiblePatientId <organization-invite-accessible-patient-id>`.
@@ -136,7 +148,8 @@ Once all this information is obtained, a request can be constructed:
      "userEmail": "user@example.com",
      "firstName": "Jane",
      "lastName": "Doe",
-     "accessiblePatientId: "d1f84545-5981-4250-80d6-a99f8be0d716"
+     "accessiblePatientId: "d1f84545-5981-4250-80d6-a99f8be0d716",
+     "isSynapseRole": false
    }
 
 .. _organization-invite-registering-a-user-by-security-question-and-answer:
@@ -286,11 +299,12 @@ The response of the API should contain an array of organization invites that the
        "id": "f05df920-b51e-4da2-b7a6-9eebc67e7059",
        "createdOn": "01-01-2021",
        "fhirServerId": "d9c34349-3e81-41bf-8113-27bc01dcaa9d",
+       "fhirServerName": "Good Health Clinic",
+       "isSynapseRole": false,
        "userId": "e35819bf-6df0-447c-9484-3ff77029ac44",
        "userName": "Jane Doe",
        "userEmail": "user@example.com",
-       "accessiblePatientId": "d1f84545-5981-4250-80d6-a99f8be0d716",
-       "fhirServerName": "Good Health Clinic",
+       "accessiblePatientId": "d1f84545-5981-4250-80d6-a99f8be0d716",       
        "patient": { }
      },
    ]
@@ -334,11 +348,12 @@ FHIR server:
          "id": "f05df920-b51e-4da2-b7a6-9eebc67e7059",
          "createdOn": "01-01-2021",
          "fhirServerId": "d9c34349-3e81-41bf-8113-27bc01dcaa9d",
+         "fhirServerName": "Good Health Clinic",
+         "isSynapseRole": false,
          "userId": "e35819bf-6df0-447c-9484-3ff77029ac44",
          "userName": "Jane Doe",
          "userEmail": "user@example.com",
-         "accessiblePatientId": "d1f84545-5981-4250-80d6-a99f8be0d716",
-         "fhirServerName": "Good Health Clinic",
+         "accessiblePatientId": "d1f84545-5981-4250-80d6-a99f8be0d716",         
          "patient": { }
        },
      ]
@@ -400,12 +415,13 @@ then the response will contain an ``acceptedOn`` property:
      "id": "f05df920-b51e-4da2-b7a6-9eebc67e7059",
      "createdOn": "01-01-2021",
      "fhirServerId": "d9c34349-3e81-41bf-8113-27bc01dcaa9d",
+     "fhirServerName": "Good Health Clinic",
+     "isSynapseRole": false,
      "userId": "e35819bf-6df0-447c-9484-3ff77029ac44",
      "userName": "Jane Doe",
      "userEmail": "user@example.com",
      "accessiblePatientId": "d1f84545-5981-4250-80d6-a99f8be0d716",
-     "acceptedOn": "01-01-2021",
-     "fhirServerName": "Good Health Clinic",
+     "acceptedOn": "01-01-2021",     
      "patient": { }
    }
 
@@ -417,7 +433,9 @@ Accepting an Invite - Person Association
 ----------------------------------------
 
 To accept an invite, a :doc:`person <person>` resource is required. This person will then be associated
-with read-only permissions to the patient in the invite. Each invite will have a ``patient`` object
+with read-only permissions or synapse permissions to the patient in the invite. This is determined based
+on how the :ref:`invite was created <organization-invite-creating-an-invite-security-question-and-answer>`
+and whether the ``isSynapseRole`` was set to ``true`` or not. Each invite will have a ``patient`` object
 which is a standard `FHIR patient resource <https://www.hl7.org/fhir/patient.html>`_. This patient object
 can be used to :ref:`create a new person <person-creating-a-person>`. It is also possible to associate
 the invite to an existing person if needed. The client should display a message or screen to the user
@@ -469,7 +487,7 @@ The request can be constructed like this:
    }
 
 If the operation was successful, a :doc:`grant <grants>` that indicates that the person now has read-only
-access to the patient in the invite should be returned by the API.
+or synapse access to the patient in the invite should be returned by the API.
 
 .. _organization-invite-accepting-an-invite-security-question-and-answer:
 
@@ -548,4 +566,4 @@ The request should look like this:
    }
 
 If the operation was successful, the API will return a :doc:`grant <grants>` that indicates that the
-person now has read-only access to the patient in the invite.
+person now has read-only or synapse access to the patient in the invite.
