@@ -54,7 +54,7 @@ Inherited roles
 ---------------
 
 There are a couple situations where the role is inherited. If a grant is given to an organization, then
-all users of that organization will inherit the ``write`` role. This means that by default, all users
+all users of that organization will inherit the ``Write`` role. This means that by default, all users
 of that organization can read, create, update, or delete records in the FHIR server specified in the
 grant.
 
@@ -65,7 +65,7 @@ in the grant.
 
 If a specific role is required for a specific user outside of the group, then a separate grant will
 need to be created. As an example, suppose you have a grant for an organization and all users of that
-organization now have ``write`` permissions to the FHIR server indicated on the grant. It may be necessary
+organization now have ``Write`` permissions to the FHIR server indicated on the grant. It may be necessary
 that you want a few individuals in that organization to be administrators of that FHIR server. In this
 case, a different grant for each individual user account will need to be :ref:`created <grants-creating-grants>`.
 
@@ -79,9 +79,9 @@ Grants can be given to a few different entities:
 User
    Users are specific user accounts that can log into the system. Usually, grants that are applied to
    a specific user indicate that they require a specific role that should be different from a related
-   group. As an example, all users of an organization will contain the ``write`` role, but it may be
-   necessary that a few individuals in that organization require the ``admin`` role. In this case, separate
-   grants for each individual user will need to be :ref:`created <grants-creating-grants>`.
+   group. As an example, all users of an organization will contain the ``Write`` role, but it may be
+   necessary that a few individuals in that organization require the ``Administrator`` role. In this
+   case, separate grants for each individual user will need to be :ref:`created <grants-creating-grants>`.
 
 Person
    Grants can be applied to :doc:`person <person>` resources. In this case, all users that have an association
@@ -183,6 +183,11 @@ fhirServerId
 role
    The role the entity should have to the FHIR server. Review :ref:`grants-roles` for more information.
 
+   .. note::
+
+      If the role is ``Synapse``, then ``accessiblePatientId`` is required. Additionally, when creating
+      a role for an :doc:`Azure FHIR server <azure-api-linking>`, the role **must** be set to ``Synapse``.
+
 accessiblePatientId
    If the entity should be restricted to a specific patient, then the id of the patient resource needs
    to be included in this property.
@@ -228,6 +233,11 @@ Limitations
 * Only owners and administrators of a FHIR server can create additional grants.
 
 * If creating a grant with restricted patient access, then ``role`` must be set to ``Read`` or ``Synapse``.
+
+* If ``role`` is ``Synapse``, then ``accessiblePatientId`` is required.
+
+* If a grant is being created for an :doc:`Azure FHIR server <azure-api-linking>`, then ``role`` must
+  be set to ``Synapse``.
 
 * Only a member of Darena Solutions can create grants for an ``Application`` or ``ExternalApplication``.
 
