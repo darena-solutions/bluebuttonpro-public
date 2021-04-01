@@ -123,8 +123,9 @@ fhirDatabaseDisplayName - **REQUIRED**
    FHIR server. Once again, we recommend setting this value to be something that represents your organization.
    As an example, if your organization was named Good Health Clinic, you may want your display name
    to be **good-health-clinic**. Using this value, your FHIR server is now located on https://api.bluebuttonpro.com/good-health-clinic.
-   You can make regular FHIR calls at this location. However, with Azure FHIR servers, this is very
-   limited. Please review :ref:`azure-api-linking-limitations` for more information.
+   You can make regular FHIR calls at this location. However, with Azure FHIR servers, there are some
+   differences and limitations when compared to BlueButtonPRO FHIR servers. Please review :ref:`azure-api-linking-limitations`
+   for more information.
 
 fhirServerEndpoint - **REQUIRED**
    This is the location of your FHIR server. You should have noted this down :ref:`here <azure-api-linking-endpoint-take-note>`.
@@ -169,18 +170,37 @@ the :ref:`azure-api-linking-limitations` section for more information.
 Limitations
 -----------
 
-Azure FHIR servers can only be used in a limited capacity. Please review the following before using
-our platform:
+There are various differences and limitations when comparing Azure FHIR servers and BlueButtonPRO FHIR
+servers. Please review the following before using our platform:
 
-* Only the `create <https://www.hl7.org/fhir/http.html#create>`_ endpoint is supported through BlueButtonPRO.
-  
-  * Conditional creates are not supported.
+* Our API acts as a pass-through API. When a FHIR call is being made in our API, the request is being
+  forwarded to the Azure FHIR server. Because of this design, the range of features and functionality
+  will be different between Azure FHIR servers and BlueButtonPRO FHIR servers. It is possible that some
+  features (search parameters, REST functionality, operations, etc.) are available for BlueButtonPRO
+  and not for Azure and vice-versa.
+
+* All `FHIR calls <https://www.hl7.org/fhir/http.html>`_ that are supported by BlueButtonPRO servers
+  are also supported for Azure FHIR servers since they are forwarded to Azure. However, some things
+  may not be supported by Azure. One such example is bundle transactions. Bundle transactions are fully
+  supported by BlueButtonPRO, but this is not supported by Azure.
+
+* When using the metadata FHIR endpoint, ``/metadata``, we return the metadata that is returned by Azure.
+  This is not the same metadata that will be returned if using a BlueButtonPRO FHIR server.
+
+* Similarly to how we forward each FHIR call, we also respond with Azure's response. This means that
+  there may be some scenarios where the response will be different when compared to a BlueButtonPRO
+  FHIR server. As an example, typically in a BlueButtonPRO FHIR server, if something isn't supported
+  an unsupported operation outcome will be returned. When using an Azure FHIR server, the same response
+  is not guaranteed because the Azure FHIR server will receive the call and respond with its own interpretation.
 
 * SMART-on-FHIR is not supported.
+
+* `Bulk export <https://hl7.org/fhir/uv/bulkdata/index.html>`_ is not supported.
 
 * Sending :doc:`organization invites <organization-invite>` and linking patients is supported.
 
 * Sending, receiving, and importing :doc:`synapse packages <synapse>` is supported.
 
-* Any other operation with BlueButtonPRO is not expected to be supported. If there is a specific functionality
-  that is desired, please create an issue in our `github repo <https://github.com/darena-solutions/bluebuttonpro-public>`_.
+* Any other operation with BlueButtonPRO is not expected to be supported (EG: There is no support for
+  importing resources or uploading CCDA's). If there is a specific functionality that is desired, please
+  create an issue in our `github repo <https://github.com/darena-solutions/bluebuttonpro-public>`_.
