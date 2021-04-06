@@ -35,7 +35,7 @@ isSynapseRole - **REQUIRED**
 accessiblePatientId
    This is the id of the FHIR patient resource in the organization's FHIR server. This will be the patient
    that the user will be linked to and have read-only access. If the id of the patient is not known,
-   a search can be performed instead by using the *accessiblePatientIdentifierSearchStr* parameter.
+   a search can be performed instead by using the ``accessiblePatientIdentifierSearchStr`` parameter.
 
 .. _organization-invite-accessible-patient-identifier-search-str:
 
@@ -435,11 +435,16 @@ Accepting an Invite - Person Association
 To accept an invite, a :doc:`person <person>` resource is required. This person will then be associated
 with read-only permissions or synapse permissions to the patient in the invite. This is determined based
 on how the :ref:`invite was created <organization-invite-creating-an-invite-security-question-and-answer>`
-and whether the ``isSynapseRole`` was set to ``true`` or not. Each invite will have a ``patient`` object
-which is a standard `FHIR patient resource <https://www.hl7.org/fhir/patient.html>`_. This patient object
-can be used to :ref:`create a new person <person-creating-a-person>`. It is also possible to associate
-the invite to an existing person if needed. The client should display a message or screen to the user
-indicating which they prefer.
+and whether the ``isSynapseRole`` was set to ``true`` or not. There are two different ways this person
+resource can be determined. One way is to select an existing person. To do this, the ``existingPersonId``
+parameter should contain the id of the existing person when performing the request. Another way is to
+create a new person when accepting an invite. To do this, ``existingPersonId`` should remain empty and
+a request should be performed. The API will determine that since ``existingPersonId`` is empty, a new
+person should be created. Each invite will have a ``patient`` object which is a standard `FHIR patient
+resource <https://www.hl7.org/fhir/patient.html>`_. This patient object will be used to create the new
+person.
+
+The ``existingPersonId`` parameter is explained more in the sections below.
 
 
 .. _organization-invite-accepting-an-invite-user-email-address:
@@ -460,17 +465,28 @@ accept must be determined. This can be typically done by displaying the list of 
 can accept by :ref:`retrieving them <organization-invite-retrieving-invites-for-a-user>` and then allowing
 the user to select which invite to accept.
 
-A person will need to be selected which is explained :ref:`here <organization-invite-accepting-an-invite-person-association>`.
-Once a person has been selected a request will need to be sent to the following endpoint to accept the
-invite, assuming the id of the invite is ``f05df920-b51e-4da2-b7a6-9eebc67e7059``: https://api.bluebuttonpro.com/OrganizationInvites/f05df920-b51e-4da2-b7a6-9eebc67e7059/accept.
+A person will need to be associated which is explained :ref:`here <organization-invite-accepting-an-invite-person-association>`.
+Once all this information is obtained a request will need to be sent to the following endpoint to accept
+the invite, assuming the id of the invite is ``f05df920-b51e-4da2-b7a6-9eebc67e7059``: https://api.bluebuttonpro.com/OrganizationInvites/f05df920-b51e-4da2-b7a6-9eebc67e7059/accept.
 
 The endpoint accepts the following parameters:
 
 id - **REQUIRED**
    This is the id of the invite.
 
-personId - **REQUIRED**
-   This is the id of the person to associate the patient in the invite with.
+.. _organization-invite-existing-person-id:
+
+existingPersonId
+   If the invite should be associated with an existing person, then this parameter should contain the
+   id of that person. If a new person needs to be created, then do not send a request with this parameter,
+   or set the parameter to ``null``.
+
+.. _organization-invite-person-relationship-type:
+
+personRelationshipType
+   This parameter is only relevant and required if a new person needs to be generated, otherwise the
+   parameter is ignored. The relationship between the user and the new person needs to be specified
+   here.
 
 The request can be constructed like this:
 
@@ -483,7 +499,7 @@ The request can be constructed like this:
 
    {
       "id": "f05df920-b51e-4da2-b7a6-9eebc67e7059",
-      "personId": "2e755707-1d7b-435b-9ae7-32fcddb87fdb"
+      "existingPersonId": "2e755707-1d7b-435b-9ae7-32fcddb87fdb"
    }
 
 If the operation was successful, a :doc:`grant <grants>` that indicates that the person now has read-only
@@ -535,9 +551,9 @@ The request should look like this:
 
 The API will then return the invite if the security answer matches.
 
-To accept the invite, a person will need to be selected. More information on that is explained :ref:`here
-<organization-invite-accepting-an-invite-person-association>`. Once a person has been selected, a call
-to the following endpoint will need to be performed: https://api.bluebuttonpro.com/OrganizationInvites/security-details/code/ABC12345/accept.
+To accept the invite, a person will need to be associated. More information on that is explained :ref:`here
+<organization-invite-accepting-an-invite-person-association>`. Once this information has been obtained,
+a call to the following endpoint will need to be performed: https://api.bluebuttonpro.com/OrganizationInvites/security-details/code/ABC12345/accept.
 
 This endpoint accepts the following parameters:
 
@@ -547,8 +563,11 @@ securityCode - **REQUIRED**
 securityAnswer - **REQUIRED**
    The security answer entered by the user that identifies the invite.
 
-personId - **REQUIRED**
-   This is the id of the person to associate the patient in the invite with.
+existingPersonId
+   see :ref:`existingPersonId <organization-invite-existing-person-id>`
+
+personRelationshipType
+   see :ref:`personRelationshipType <organization-invite-person-relationship-type>`
 
 The request should look like this:
 
@@ -562,7 +581,7 @@ The request should look like this:
    {
       "securityCode": "ABC12345",
       "securityAnswer": "Charlie",
-      "personId": "2e755707-1d7b-435b-9ae7-32fcddb87fdb"
+      "personRelationshipType": "Self"
    }
 
 If the operation was successful, the API will return a :doc:`grant <grants>` that indicates that the
