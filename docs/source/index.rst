@@ -5,11 +5,12 @@
 
 BlueButtonPRO Documentation
 ===========================
-TODO: Homepage, TOC
+Welcome to the BlueButtonPRO documentation. Use this documentation to understand our major concepts
+and how to work with the BlueButtonPRO API. If you have any questions or suggestions, please review
+the :doc:`suggestions-and-bugs` page.
 
 .. toctree::
    :maxdepth: 2
-   :hidden:
    :caption: Major Concepts
 
    getting-started
@@ -20,11 +21,12 @@ TODO: Homepage, TOC
    organization-invite
    directory-listing
    synapse
+   importing-and-processing
+   cms-import-eob
    background-jobs
 
 .. toctree::
    :maxdepth: 2
-   :hidden:
    :caption: Miscellaneous
 
    definitions
@@ -33,7 +35,6 @@ TODO: Homepage, TOC
 
 .. toctree::
    :maxdepth: 2
-   :hidden:
    :caption: Additional Information
 
    suggestions-and-bugs

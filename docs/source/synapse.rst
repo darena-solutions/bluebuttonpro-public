@@ -299,13 +299,9 @@ Additional notes
 Once the package is sent to the API, the API will validate the request and store the package for import.
 If the request was successful, the API will return a ``200 OK`` response.
 
-The recipient(s) will be notified that a package has arrived and is ready for them to import. If the
-package is going to an organization, all users of that organization will be notified.
-
-.. note::
-
-   Only SignalR messaging is currently supported for a real-time notification. Review :ref:`synapse-signalr-notifications`
-   for more information in how to subscribe for real-time notifications.
+The recipient(s) will be able to query the API and see that a package has arrived and is ready for them
+to import. If the package is going to an organization, all users of that organization are seen as recipients
+and any user in that organization can import the package.
 
 .. _synapse-finding-packages:
 
@@ -458,6 +454,8 @@ If one resource is found, that resource is updated with the new resource to be i
 
 If more than one resource is found, an error is logged and written in the result bundle.
 
+.. _synapse-inferring-import-result:
+
 Inferring import result
 -----------------------
 
@@ -513,10 +511,3 @@ like so:
    Authorization: Bearer <token>
 
 The user :ref:`must have access <synapse-intended-receiver>` to the package to delete the package.
-
-.. _synapse-signalr-notifications:
-
-SignalR notifications
----------------------
-
-TODO
