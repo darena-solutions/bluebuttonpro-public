@@ -51,6 +51,8 @@ Once the request has been made, the API will return a ``202 Accepted`` response 
 that a :doc:`background job <background-jobs>` has started. The response will also contain information
 about the background job.
 
+.. _importing-and-processing-importing-an-eob-bundle:
+
 Importing an EOB Bundle
 -----------------------
 
