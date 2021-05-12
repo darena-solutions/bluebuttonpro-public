@@ -23,6 +23,7 @@ the :doc:`suggestions-and-bugs` page.
    synapse
    importing-and-processing
    cms-import-eob
+   cms-login
    background-jobs
 
 .. toctree::

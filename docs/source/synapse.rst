@@ -234,7 +234,7 @@ FHIR server, the following request can be constructed:
    Content-Type: application/json
    Authorization: Bearer <token>
 
-  {
+   {
      "senderType": "Organization",
      "receiverType": "Person",
      "description": "A simple description of the package",
@@ -256,6 +256,8 @@ A security code is also required in this type of request. The receiving user tha
 person will need to provide this security code before the package can be :ref:`imported <synapse-importing-a-package>`
 or :ref:`downloaded <synapse-downloading-a-package>`.
 
+.. _synapse-linked-person-to-organization:
+
 Linked person-to-organization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -269,7 +271,7 @@ to an organization. This is how the request will look like:
    Content-Type: application/json
    Authorization: Bearer <token>
 
-  {
+   {
      "senderType": "Person",
      "receiverType": "Organization",
      "description": "A simple description of the package",
@@ -287,11 +289,84 @@ used during the :doc:`organization invite process <organization-invite>`, and al
 belonging to the organization. This should not be confused with a :ref:`PFR <definitions-pfr>` id and
 the patient id in that :ref:`PFR <definitions-pfr>`.
 
+Downloading an EOB Bundle from CMS
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+While it is necessary that all synapse packages contain a bundle to import, it is possible to obtain
+this bundle directly from CMS. If the bundle for the synapse package is a bundle of EOB's for the patient,
+then this method can be used. This method is only possible if the sender is a ``Person``, which means
+that this method is only available when creating a synapse package using the :ref:`linked person-to-organization
+<synapse-linked-person-to-organization>` method.
+
+When constructing the request to create the synapse package, instead of passing a bundle, a return url
+should be provided instead. The name of this property is ``cmsEobDownloadReturnUrl`` and the request
+should look like this:
+
+.. code-block:: console
+
+   POST https://api.bluebuttonpro.com/Synapse
+
+   Content-Type: application/json
+   Authorization: Bearer <token>
+
+   {
+     "senderType": "Person",
+     "receiverType": "Organization",
+     "description": "A simple description of the package",
+     "fhirServerId": "17132b89-30bf-44a8-9f24-7d547b569eb1",
+     "patientId": "1c1e3f94-99e5-4c67-a315-c5c16a958c41",
+     "cmsEobDownloadReturnUrl": "https://www.goodhealthclinic.com?queryParam1=myvalue"
+   }
+
+Notice how there is no ``bundle`` parameter anymore and instead it is replaced by ``cmsEobDownloadReturnUrl``.
+This indicates to the API that the bundle should instead by downloaded from CMS. A return url is needed
+here because in order to download the bundle from CMS, a user will need to log in through the CMS login
+page. Once the user is logged in, the API needs to notify your application that the process has started.
+This is accomplished by using this given return url.
+
+Notice that the example return url contains a query parameter ``queryParam1=myvalue``. This query parameter
+and any additional query parameters that are added to the return url will be echoed back by our API.
+This can be useful in situations where your application needs to persist some state information.
+
+Once this request is made, the API will return a ``200 OK`` response with a JSON body that will contain
+the id of the synapse package and a security token:
+
+.. code-block:: json
+
+   {
+     "id": "6f849c27-96e6-46f2-b88f-9bd359b6234f",
+     "createdAt": "2021-01-01",
+     "description": "A simple description of the package",
+     "senderType": "Person",
+     "senderId": "5b75f2c7-0eb5-42de-88a6-106735ed3b8a",
+     "receiverType": "Organization",
+     "receiverId": "89a8cff7-e64e-49e6-9fb3-d85cf86ccb56",
+     "wasImported": false,
+     "isPackageFromCmsEobDownload": true,
+     "cmsEobDownloadInfo": {
+       "isCmsEobBeingDownloaded": false,
+       "cmsEobDownloadContextToken": "mysecuritytoken",
+       "wasCmsEobDownloaded": false
+     }
+   }
+
+The security token is located in ``.cmsEobDownloadInfo.cmsEobDownloadContextToken``. The combination
+of the id and the security token is considered to be a context. At this point, a user will need to log
+in through CMS before the process can continue. This is explained :doc:`here <cms-login>`.
+
+.. warning::
+
+   This context is only valid for 15 minutes, after which an EOB bundle can no longer be downloaded.
+   Thus, the synapse package can no longer be interacted with, and a new synapse package will need to
+   be created to restart the process.
+
 Limitations
 ^^^^^^^^^^^
 
 * Users can never be the sender type.
 * Linked person to linked person messaging is not supported.
+* If the bundle needs to be downloaded from CMS, the sender must be a ``Person`` and the receiver must
+  be an ``Organization``.
 
 Additional notes
 ^^^^^^^^^^^^^^^^
@@ -401,6 +476,28 @@ id and patient is not required. This will be automatically determined internally
    must have been provisioned for that person. This also means that a package can only be imported to
    a :ref:`PFR <definitions-pfr>` if the package receiver is a person.
 
+If an EOB bundle was downloaded from CMS for this synapse package, then there is one additional parameter
+that you can supply, ``keepEobs``. This is because EOB bundles are processed in a specific way and once
+each individual EOB is processed, they are then discarded. Instead of discarding them and to keep them
+in the specified FHIR server, set ``keepEobs`` to ``true``. The request looks like this:
+
+.. code-block:: console
+
+   POST https://api.bluebuttonpro.com/Synapse/347175fd-7b94-4a7d-8561-9478a4ea3192/import
+
+   Content-Type: application/json
+   Authorization: Bearer <token>
+
+   {
+     "id": "347175fd-7b94-4a7d-8561-9478a4ea3192", <-- Must match id in URL
+     "patientId": "8ddcbd6f-705d-43f0-b09e-6668323c43c8", <-- NOT required if package is sent between an organization and linked person
+     "fhirServerId": "c7db9f2c-2768-4064-a107-0fbb5abfa5d4", <-- NOT required if package is sent between an organization and linked person
+     "securityCode": "123456", <-- Only required if receiver is user or person,
+     "keepEobs": true
+   }
+
+This parameter is set to ``false`` by default.
+
 Once the request comes in, the API will ensure the current user :ref:`has access to the package <synapse-intended-receiver>`.
 If this check is successful, a :doc:`background process <background-jobs>` is initiated. Once the background
 process is initiated, the server returns a ``202 Accepted`` response. The client can then use the :doc:`background
@@ -409,6 +506,14 @@ jobs <background-jobs>` endpoint to determine the status of this process.
 .. warning::
 
    After a package has been imported. It can no longer be imported again.
+
+Import process
+^^^^^^^^^^^^^^
+.. important::
+
+   The following import process description is only relevant for the synapse packages where a bundle
+   was specified. If an EOB bundle was downloaded from CMS instead, then the process is a little different
+   and is described :ref:`here <importing-and-processing-importing-an-eob-bundle>`.
 
 During the background process, each resource in the bundle is iterated over and all reference properties
 that can point to a patient will have their values updated to the id of the patient given in the :ref:`import
