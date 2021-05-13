@@ -2,8 +2,8 @@ CMS Login
 =========
 
 There are a couple situations where logging into CMS is required by a user. This is required when :doc:`importing
-an EOB bundle from CMS <cms-import-eob>`, and when downloading an EOB bundle from CMS that represents
-a synapse package.
+an EOB bundle from CMS <cms-import-eob>`, and when :ref:`downloading an EOB bundle from CMS that represents
+a synapse package <synapse-downloading-an-eob-bundle-from-cms>`.
 
 Once the context has been created for either of those situations, the next step in the process is to
 open a browser in your application (this can be the system browser or an embedded browser). You must
@@ -14,8 +14,9 @@ then direct the user to a URL depending on the type of context.
 
 Both of these endpoints require an ``id`` and ``token`` query parameter. These values will be the values
 that the API returned when the contexts were created. Review :doc:`importing an EOB bundle from CMS
-<cms-import-eob>` and downloading an EOB bundle from CMS to represent a synapse package for more information
-on that step. Once this information is available, you should set your browser url to:
+<cms-import-eob>` and :ref:`downloading an EOB bundle from CMS to represent a synapse package <synapse-downloading-an-eob-bundle-from-cms>`
+for more information on that step. Once this information is available, you should set your browser url
+to:
 
 .. code-block:: console
 

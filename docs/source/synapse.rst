@@ -289,6 +289,8 @@ used during the :doc:`organization invite process <organization-invite>`, and al
 belonging to the organization. This should not be confused with a :ref:`PFR <definitions-pfr>` id and
 the patient id in that :ref:`PFR <definitions-pfr>`.
 
+.. _synapse-downloading-an-eob-bundle-from-cms:
+
 Downloading an EOB Bundle from CMS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
