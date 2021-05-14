@@ -62,17 +62,29 @@ encounters, conditions, procedures, etc. The API can inspect an EOB and extract 
 out of the EOB and create individual resources out of that information. For example, if an EOB contains
 information about procedures that were preformed, the API will extract this information and create individual
 `Procedure <https://www.hl7.org/fhir/procedure.html>`_ resources out of it. These resources are then
-created in a specified FHIR server.
-
-This functionality only works with :ref:`personal FHIR servers <definitions-pfr>`. This is because each
-resource that is extracted out of an EOB will have its patient reference updated to the patient that
-exists in the :ref:`personal FHIR server <definitions-pfr>`. For example, when a procedure resource
-is extracted, it will have the ``Procedure.subject`` property overwritten and set to ``Patient/*patient id*``.
+created in a specified FHIR server. Each resource that is extracted out of an EOB will have its patient
+reference updated to the patient that was provided upon starting this process. For example, when a procedure
+resource is extracted, it will have the ``Procedure.subject`` property overwritten and set to ``Patient/*patient id*``.
 
 To process a bundle of EOB resources in bulk, the following endpoint can be used: https://api.bluebuttonpro.com/Import/eobbundle.
-This endpoint accepts a `FHIR bundle resource <https://www.hl7.org/fhir/bundle.html>`_ as the sole parameter
-in the request body. In addition to the body of the request, a :doc:`FHIR server context <header-values>`
-header is required. Once all this information is available, the request can be constructed:
+This endpoint accepts the following parameters:
+
+patientId
+   This is the id of the patient that all resources that were extracted from each EOB will have their
+   references updated with. As an example, if a procedure was extracted from an EOB, the ``Procedure.subject``
+   property will be overwritten and set to: ``Patient/**patientId**``. Refer to the :ref:`synapse-importing-a-package`
+   synapse section for more information as to how patient references are handled.
+
+bundle
+   This is the FHIR bundle resource in JSON representation that needs to be imported
+
+keepEobs
+   Once an EOB is processed and the resources are extracted, the EOB is then subsequently discarded.
+   The EOB resource itself is not created in the FHIR server. In order to also keep the EOB resource
+   and create it in the FHIR server, set this parameter to ``true``. It is ``false`` by default.
+
+In addition to the body of the request, a :doc:`FHIR server context <header-values>` header is required.
+Once all this information is available, the request can be constructed:
 
 .. code-block:: console
 
@@ -83,20 +95,10 @@ header is required. Once all this information is available, the request can be c
    FhirServerId-Context: 3fa85f64-5717-4562-b3fc-2c963f66afa6
 
    {
-     <bundle resource>
+     "keepEobs": true,
+     "patientId": "c7b42dce-0cd2-41b6-907f-c2b17f56ad88",
+     "bundle": { <bundle resource> }
    }
-
-Once an EOB is processed and the resources are extracted, the EOB is then subsequently dismissed. The
-EOB resource itself is not created in the FHIR server. In order to also keep the EOB resource and create
-it in the FHIR server, set the ``keepEobs`` query parameter to ``true`` when making the request:
-
-.. code-block:: console
-
-   POST https://api.bluebuttonpro.com/Import/eobbundle?keepEobs=true
-
-.. note::
-
-   The ``keepEobs`` query parameter is set to ``false`` by default.
 
 Once the request has been made, the API will return a ``202 Accepted`` response which will indicate
 that a :doc:`background job <background-jobs>` has started. The response will also contain information
@@ -104,12 +106,12 @@ about the background job.
 
 The background job will iterate over each EOB and extract the resources contained in those EOBs. For
 each of those extracted resources, the patient reference value is overwritten and set to the patient
-that exists in the personal FHIR server. A check is then performed to determine if the resource already
-exists in the FHIR server. If it already exists, the resource is skipped and the next resource is checked.
-If the resource does not exist, it is created. The API determines if a resource exists by taking the
-identifiers of each resource and an additional value that can uniquely identify the resource. As an
-example, for a medication resource, the API wll take the identifiers of that medication resource and
-it will also take the medication code. The identifiers and medication code are then used in an ANDed
+that was provided upon starting this process. A check is then performed to determine if the resource
+already exists in the FHIR server. If it already exists, the resource is skipped and the next resource
+is checked. If the resource does not exist, it is created. The API determines if a resource exists by
+taking the identifiers of each resource and an additional value that can uniquely identify the resource.
+As an example, for a medication resource, the API wll take the identifiers of that medication resource
+and it will also take the medication code. The identifiers and medication code are then used in an ANDed
 search.
 
 The result of each operation on a resource is stored and contained in a bundle which can later be inferred.
@@ -120,8 +122,6 @@ Limitations
 
 * Only the EOB resources in the bundle will be processed. If the bundle were to have a resource that
   is not an EOB, that resource will be ignored.
-
-* The import only works with :ref:`personal FHIR servers <definitions-pfr>`
 
 Additional Notes
 ^^^^^^^^^^^^^^^^
