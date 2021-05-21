@@ -34,8 +34,7 @@ Administrator
 
 Write
    This role allows the user to read and write data from the FHIR server. :doc:`Organization invites
-   <organization-invite>` and other various functionality that requires writes can also be performed
-   with this role.
+   <invite>` and other various functionality that requires writes can also be performed with this role.
 
 Read
    This role only allows reads on the FHIR server. Any create, update, or delete operation is forbidden
@@ -87,7 +86,7 @@ Person
    Grants can be applied to :doc:`person <person>` resources. In this case, all users that have an association
    with this person will also have access to the FHIR server specified in the grant. Typically, grants
    to person resources are created for restricted patient access to a FHIR server, this is done through
-   the :doc:`organization invite process <organization-invite>`.
+   the :doc:`organization invite process <invite>`.
 
 Organization
    When a grant is applied to an organization, all users of that organization will also have access
@@ -126,10 +125,10 @@ There are some situations where a grant is created by default:
   means that all users of that organization can now access that FHIR server and they have the :ref:`inherited 
   role <grants-inherited-roles>` of ``Write``.
 
-* When a user accepts an :doc:`organization invite <organization-invite>` for a person, a grant is created
-  automatically linking that person with the organization's FHIR server with a ``Read`` or ``Synapse`` role.
-  In addition the grant will :ref:`limit access to the patient resource <grants-restrict-access-to-patient>`
-  that was specified in the organization invite.
+* When a user accepts an :doc:`organization invite <invite>` for a person, a grant is created automatically
+  linking that person with the organization's FHIR server with a ``Read`` or ``Synapse`` role. In addition
+  the grant will :ref:`limit access to the patient resource <grants-restrict-access-to-patient>` that
+  was specified in the organization invite.
 
 * When a :ref:`PFR <definitions-pfr>` is provisioned for a person resource, all users that have access
   to that person will now have a grant to that :ref:`PFR <definitions-pfr>` with whatever role the user
@@ -150,9 +149,9 @@ the entity has ``Read`` or ``Synapse`` permissions only for that particular pati
 it indicates that the entity can create :doc:`synapse packages <synapse>` that contains FHIR resources
 for only that particular patient.
 
-When accepting an :doc:`organization invite <organization-invite>`, these types of grants are created
-automatically granting ``Read`` or ``Synapse`` permissions to the FHIR server to the specified entity
-with restricted access to a single patient.
+When accepting an :doc:`organization invite <invite>`, these types of grants are created automatically
+granting ``Read`` or ``Synapse`` permissions to the FHIR server to the specified entity with restricted
+access to a single patient.
 
 .. _grants-creating-grants:
 

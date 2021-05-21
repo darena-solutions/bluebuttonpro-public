@@ -197,7 +197,7 @@ servers. Please review the following before using our platform:
 
 * `Bulk export <https://hl7.org/fhir/uv/bulkdata/index.html>`_ is not supported.
 
-* Sending :doc:`organization invites <organization-invite>` and linking patients is supported.
+* Sending :doc:`invites <invite>` and linking patients is supported.
 
 * Sending, receiving, and importing :doc:`synapse packages <synapse>` is supported.
 

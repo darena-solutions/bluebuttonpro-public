@@ -223,9 +223,9 @@ Organization-to-linked person
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A linked person is a person that has been associated with a FHIR patient resource in an organization's
-FHIR server. This is done by going through the :doc:`organization invite process <organization-invite>`.
-Once a link has been established between a person resource and a FHIR patient resource in the organization's
-FHIR server, the following request can be constructed:
+FHIR server. This is done by going through the :doc:`organization invite process <invite>`. Once a link
+has been established between a person resource and a FHIR patient resource in the organization's FHIR
+server, the following request can be constructed:
 
 .. code-block:: console
 
@@ -250,7 +250,7 @@ internally by the API. The API finds the id by using the values provided in ``fh
 The patient id must be the the id of the FHIR patient resource that exists in the **organization's**
 FHIR server. And of course the FHIR server id must be the id of the FHIR server where this patient exists.
 Remember that the patient id must reflect the id of the patient that was used when going through the
-:doc:`organization invite process <organization-invite>`.
+:doc:`organization invite process <invite>`.
 
 A security code is also required in this type of request. The receiving user that has access to this
 person will need to provide this security code before the package can be :ref:`imported <synapse-importing-a-package>`
@@ -285,9 +285,9 @@ person. The sender and receiver type are flipped since the package is now being 
 person to an organization. The FHIR server id and patient id have the same values. This is an important
 thing to understand. The FHIR server id and patient id when sending between an organization and linked
 person, regardless of who is the sender and who is the receiver, must always be the values that were
-used during the :doc:`organization invite process <organization-invite>`, and always reflects the ids
-belonging to the organization. This should not be confused with a :ref:`PFR <definitions-pfr>` id and
-the patient id in that :ref:`PFR <definitions-pfr>`.
+used during the :doc:`organization invite process <invite>`, and always reflects the ids belonging to
+the organization. This should not be confused with a :ref:`PFR <definitions-pfr>` id and the patient
+id in that :ref:`PFR <definitions-pfr>`.
 
 .. _synapse-downloading-an-eob-bundle-from-cms:
 

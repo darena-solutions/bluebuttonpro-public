@@ -18,7 +18,7 @@ the :doc:`suggestions-and-bugs` page.
    header-values
    grants
    person
-   organization-invite
+   invite
    directory-listing
    synapse
    importing-and-processing
