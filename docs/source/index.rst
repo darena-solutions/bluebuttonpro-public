@@ -11,6 +11,10 @@ the :doc:`suggestions-and-bugs` page.
 
 .. toctree::
    :maxdepth: 2
+   :caption: Introduction
+
+.. toctree::
+   :maxdepth: 2
    :caption: Major Concepts
 
    getting-started
@@ -41,12 +45,30 @@ the :doc:`suggestions-and-bugs` page.
    suggestions-and-bugs
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Dev Sphere
 
-   dev-sphere-getting-started
-   dev-sphere-sandboxes
-   dev-sphere-apps
-   dev-sphere-fhir-tools
-   dev-sphere-technical-reference
-   dev-sphere-guides
+   dev-sphere/getting-started
+   dev-sphere/sandboxes
+   dev-sphere/apps
+   dev-sphere/fhir-tools
+
+.. toctree::
+   :maxdepth: 4
+   :caption: SDK & Tools
+
+   sdk-and-tools/meldrx-sdk
+   sdk-and-tools/app-builder
+
+.. toctree::
+   :maxdepth: 4
+   :caption: Developer Guides
+
+   developer-guides/app-quick-start
+   developer-guides/fhir-api-provider-guides
+
+.. toctree::
+   :maxdepth: 4
+   :caption: Technical Reference
+
+   technical-reference/meldrx-sandbox

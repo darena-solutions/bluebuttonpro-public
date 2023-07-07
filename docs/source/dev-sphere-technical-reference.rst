@@ -1,5 +1,0 @@
-Technical Reference
-====================
-
-Test
--------------
