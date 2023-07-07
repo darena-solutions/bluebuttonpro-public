@@ -1,0 +1,11 @@
+.wy-side-nav-search, .wy-nav-top, body > div > nav > div > div.wy-side-nav-search {
+    background: #02B689;
+}
+
+.rtd-search-form input {
+    border-color: #02B689;
+}
+
+.caption-text {
+    color: #004266;
+}

@@ -55,6 +55,12 @@ the :doc:`suggestions-and-bugs` page.
 
 .. toctree::
    :maxdepth: 4
+   :caption: MeldRx API
+
+   meldrx-api/intro
+
+.. toctree::
+   :maxdepth: 4
    :caption: SDK & Tools
 
    sdk-and-tools/meldrx-sdk
