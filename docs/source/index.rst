@@ -14,6 +14,18 @@ the :doc:`suggestions-and-bugs` page.
    :caption: Introduction
 
 .. toctree::
+   :maxdepth: 4
+   :caption: MeldRx
+
+   meldrx/overview
+
+.. toctree::
+   :maxdepth: 4
+   :caption: MeldRx API
+
+   meldrx-api/intro
+
+.. toctree::
    :maxdepth: 2
    :caption: Major Concepts
 
@@ -52,12 +64,6 @@ the :doc:`suggestions-and-bugs` page.
    dev-sphere/sandboxes
    dev-sphere/apps
    dev-sphere/fhir-tools
-
-.. toctree::
-   :maxdepth: 4
-   :caption: MeldRx API
-
-   meldrx-api/intro
 
 .. toctree::
    :maxdepth: 4
