@@ -1,8 +1,9 @@
 Synapse
 =======
 
-Synapse is a functionality that allows resources for a specific patient to be shared with an organization,
-user, or person.
+Synapse is a functionality that allows resources for a specific patient to be shared with an organization, user, or person.
+This could be useful for sending to clinicians who want to review a patient's medical history, or an insurance company that wants to onboard them as a new member.
+Patients can pull their data from various external sources and then send that data via the Synapse API.
 
 .. _synapse-creating-a-package:
 

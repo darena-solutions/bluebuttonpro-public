@@ -20,7 +20,3 @@ MeldRx has the ability to let users manage patient accounts for multiple patient
 For example, a mother may wish to register with MeldRx as a patient herself, but also register an account for her young children.
 
 The _People API_ provides a means for one patient account to access and manage the health data of another patient.
-
-## Synapse API
-
-The Synapse API allows patients to send a snapshot of their health data to another person, such as a clinician who wants to review their medical history, or an insurance company that wants to onboard them as a new member. Patients can pull their data from various external sources and then send that data via the Synapse API.

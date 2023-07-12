@@ -38,16 +38,9 @@ the :doc:`suggestions-and-bugs` page.
    grants
    invite
    directory-listing
-   synapse
    importing-and-processing
    cms-import-eob
    cms-login
-   background-jobs
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Miscellaneous
-
    aad-users
    azure-api-linking
 
@@ -55,7 +48,7 @@ the :doc:`suggestions-and-bugs` page.
    :maxdepth: 4
    :caption: MeldRx for Patients
 
-   
+   meldrx-patients/synapse
 
 .. toctree::
    :maxdepth: 4
