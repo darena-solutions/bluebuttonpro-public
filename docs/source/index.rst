@@ -45,7 +45,6 @@ the :doc:`suggestions-and-bugs` page.
    :caption: MeldRx for Developers
 
    meldrx-for-developers/getting-started
-   meldrx-for-developers/app-quick-start
    meldrx-for-developers/developer-portal
    meldrx-for-developers/tools
    meldrx-for-developers/fhir-api-provider-guides
