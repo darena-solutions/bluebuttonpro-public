@@ -26,8 +26,17 @@ the :doc:`suggestions-and-bugs` page.
    :maxdepth: 4
    :caption: MeldRx for Organizations
 
+   meldrx-for-organizations/getting-started
    meldrx-for-organizations/admin-app
    meldrx-for-organizations/apps
+   meldrx-for-organizations/grants
+   meldrx-for-organizations/invite
+   meldrx-for-organizations/directory-listing
+   meldrx-for-organizations/importing-and-processing
+   meldrx-for-organizations/cms-import-eob
+   meldrx-for-organizations/cms-login
+   meldrx-for-organizations/aad-users
+   meldrx-for-organizations/azure-api-linking
 
 .. toctree::
    :maxdepth: 4
@@ -44,20 +53,6 @@ the :doc:`suggestions-and-bugs` page.
    meldrx-for-developers/sandboxes
    meldrx-for-developers/apps
    meldrx-for-developers/fhir-tools
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Major Concepts
-
-   getting-started
-   grants
-   invite
-   directory-listing
-   importing-and-processing
-   cms-import-eob
-   cms-login
-   aad-users
-   azure-api-linking
 
 .. toctree::
    :maxdepth: 4
