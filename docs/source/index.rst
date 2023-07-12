@@ -21,6 +21,7 @@ the :doc:`suggestions-and-bugs` page.
    meldrx/data-vault
    meldrx/identity-management
    meldrx/apis
+   meldrx/apps
 
 .. toctree::
    :maxdepth: 4
@@ -28,7 +29,6 @@ the :doc:`suggestions-and-bugs` page.
 
    meldrx-for-organizations/getting-started
    meldrx-for-organizations/admin-app
-   meldrx-for-organizations/apps
    meldrx-for-organizations/grants
    meldrx-for-organizations/invite
    meldrx-for-organizations/directory-listing
