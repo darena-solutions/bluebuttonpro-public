@@ -1,13 +1,11 @@
 # Admin App
 
-The _MeldRx App_ is the frontend through which a MeldRx instance is configured and administrated.
+The *MeldRx App* is the front door through which a MeldRx instance is configured and administrated.
 The app is a web-based tool that allows administrators to manage users, set permissions, and configure settings.
 
---- NOTE: Depending on who is logged in, the app will be different (patient, provider, admin)
+The functionality of the app differs based on which type of user is logged in.
 
 ## Permissions Management
-
-TODO:
 
 ## Data Viewer
 

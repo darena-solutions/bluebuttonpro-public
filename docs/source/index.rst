@@ -27,7 +27,6 @@ the :doc:`suggestions-and-bugs` page.
    :maxdepth: 4
    :caption: MeldRx for Organizations
 
-   meldrx-for-organizations/getting-started
    meldrx-for-organizations/admin-app
    meldrx-for-organizations/grants
    meldrx-for-organizations/invite

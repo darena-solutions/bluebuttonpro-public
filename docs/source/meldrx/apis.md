@@ -15,7 +15,7 @@ The details of the APIs can be found in the Technical Reference section of the d
 The set of Data Vault APIs includes...
 - *MeldRx Structured Data API*
 - *MeldRx Documents API*
-- *Data Import APIs* {doc}`(more details) </technical-reference/importing-data>`
+- *{doc}`Data Import APIs </technical-reference/importing-data>`*
 
 ## Patient APIs
 
