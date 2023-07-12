@@ -32,7 +32,6 @@ the :doc:`suggestions-and-bugs` page.
    meldrx-for-organizations/invite
    meldrx-for-organizations/directory-listing
    meldrx-for-organizations/aad-users
-   meldrx-for-organizations/azure-api-linking
 
 .. toctree::
    :maxdepth: 4
@@ -71,4 +70,5 @@ the :doc:`suggestions-and-bugs` page.
    :maxdepth: 2
    :caption: Additional Information
 
+   additional-information/azure-api-linking
    additional-information/suggestions-and-bugs
