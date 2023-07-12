@@ -1,12 +1,12 @@
-.. BlueButtonPRO Docs documentation master file, created by
+.. MeldRx Docs documentation master file, created by
    sphinx-quickstart on Fri Feb 28 10:29:16 2020.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-BlueButtonPRO Documentation
+MeldRx Documentation
 ===========================
-Welcome to the BlueButtonPRO documentation. Use this documentation to understand our major concepts
-and how to work with the BlueButtonPRO API. If you have any questions or suggestions, please review
+Welcome to the MeldRx documentation. Use this documentation to understand our major concepts
+and how to work with the MeldRx API. If you have any questions or suggestions, please review
 the :doc:`suggestions-and-bugs` page.
 
 .. toctree::
@@ -18,6 +18,11 @@ the :doc:`suggestions-and-bugs` page.
    :caption: MeldRx
 
    meldrx/overview
+   meldrx/data-vault
+   meldrx/meldrx-app
+   meldrx/patient-access
+   meldrx/meldrx-apis
+   meldrx/apps
 
 .. toctree::
    :maxdepth: 4
