@@ -1,4 +1,4 @@
-# FHIR Tools
+# Tools
 
 We provide a suite of tools that will be useful when developing your SMART-on-FHIR application. Most of these tools can be accessed without signing up for the MeldRx DevSphere.
 

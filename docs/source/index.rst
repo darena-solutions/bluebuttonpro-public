@@ -32,8 +32,6 @@ the :doc:`suggestions-and-bugs` page.
    meldrx-for-organizations/grants
    meldrx-for-organizations/invite
    meldrx-for-organizations/directory-listing
-   meldrx-for-organizations/importing-and-processing
-   meldrx-for-organizations/cms-import-eob
    meldrx-for-organizations/cms-login
    meldrx-for-organizations/aad-users
    meldrx-for-organizations/azure-api-linking
@@ -50,29 +48,25 @@ the :doc:`suggestions-and-bugs` page.
    :caption: MeldRx for Developers
 
    meldrx-for-developers/getting-started
+   meldrx-for-developers/app-quick-start
    meldrx-for-developers/sandboxes
    meldrx-for-developers/apps
-   meldrx-for-developers/fhir-tools
+   meldrx-for-developers/tools
+   meldrx-for-developers/fhir-api-provider-guides
 
 .. toctree::
    :maxdepth: 4
    :caption: SDK & Tools
 
    sdk-and-tools/meldrx-sdk
-   sdk-and-tools/app-builder
-
-.. toctree::
-   :maxdepth: 4
-   :caption: Developer Guides
-
-   developer-guides/app-quick-start
-   developer-guides/fhir-api-provider-guides
+   sdk-and-tools/app-builder   
 
 .. toctree::
    :maxdepth: 4
    :caption: Technical Reference
 
    technical-reference/definitions
+   technical-reference/importing-data
    technical-reference/meldrx-sandbox
    technical-reference/meldrx-api
 
@@ -80,4 +74,4 @@ the :doc:`suggestions-and-bugs` page.
    :maxdepth: 2
    :caption: Additional Information
 
-   suggestions-and-bugs
+   additional-information/suggestions-and-bugs
