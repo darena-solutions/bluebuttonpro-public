@@ -15,7 +15,7 @@ the :doc:`suggestions-and-bugs` page.
 
 .. toctree::
    :maxdepth: 4
-   :caption: MeldRx
+   :caption: MeldRx Overview
 
    meldrx/overview
    meldrx/data-vault
@@ -35,10 +35,7 @@ the :doc:`suggestions-and-bugs` page.
    :caption: Major Concepts
 
    getting-started
-   environments
-   header-values
    grants
-   person
    invite
    directory-listing
    synapse
@@ -51,24 +48,23 @@ the :doc:`suggestions-and-bugs` page.
    :maxdepth: 2
    :caption: Miscellaneous
 
-   definitions
    aad-users
    azure-api-linking
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Additional Information
+   :maxdepth: 4
+   :caption: MeldRx for Patients
 
-   suggestions-and-bugs
+   
 
 .. toctree::
    :maxdepth: 4
-   :caption: Dev Sphere
+   :caption: MeldRx for Developers
 
-   dev-sphere/getting-started
-   dev-sphere/sandboxes
-   dev-sphere/apps
-   dev-sphere/fhir-tools
+   dev-portal/getting-started
+   dev-portal/sandboxes
+   dev-portal/apps
+   dev-portal/fhir-tools
 
 .. toctree::
    :maxdepth: 4
@@ -88,4 +84,12 @@ the :doc:`suggestions-and-bugs` page.
    :maxdepth: 4
    :caption: Technical Reference
 
+   technical-reference/definitions
    technical-reference/meldrx-sandbox
+   technical-reference/meldrx-api
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Additional Information
+
+   suggestions-and-bugs

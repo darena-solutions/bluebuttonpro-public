@@ -9,11 +9,13 @@ Many *FHIR API Providers* also provide a sandbox to use for testing their FHIR A
 
 ## MeldRx Sandbox
 
-When you create an account on the *MeldRx DevSphere*, you are automatically provisioned your own personal *MeldRx Sandbox*.
+When you create an account on the *MeldRx Dev Portal*, you are automatically provisioned your own personal *MeldRx Sandbox*.
 This sandbox is a complete FHIR server that you can use to test your SMART-on-FHIR apps.
 
 The *MeldRx Sandbox* comes pre-loaded with data so that you can begin testing immediately.
 See the [MeldRx Sandbox](#technical-reference-meldrx-sandbox) reference for more details.
+
+The *MeldRx Sandbox* exists so that developers can test their applications on the MeldRx platform. No real data should be entered into this environment. The sandbox environment is also updated more frequently than the production environment. It is possible that some features exist in the sandbox environment but have not met our quality assurance guidelines to move on to the production environment just yet.
 
 ## Linked Sandbox
 

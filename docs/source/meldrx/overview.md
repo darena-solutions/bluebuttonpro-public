@@ -37,26 +37,3 @@ Researchers may receive patient data for use in a research study.
 ### Payers
 
 Payers can receive patient data for use in claims analysis or onboarding a new member.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### TODO:
-### Linked FHIR API
-
-?? Sandbox

@@ -20,7 +20,7 @@ When you select a FHIR API Provider, you will be brought to details about that p
 
 If a FHIR API Provider provides a public sandbox environment for testing, you can test your application from the MeldRx DevSphere. You must have first registered your app with the FHIR API Provider.
 
-```{admonition} This is my admonition
+```{admonition} Note
 If you have registered a Patient or Provider application, please make sure to set one of your redirect URLs to the URL specified on the FHIR API Providers details page (it should look like `https://...meldrx.com/sof-callback`)
 ```
 
