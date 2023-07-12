@@ -19,15 +19,15 @@ Azure Portal Configuration
 To set this up, go to your Azure portal by navigating to `<https://portal.azure.com>`_. Once there, search
 for the resource **Azure Active Directory**:
 
-.. image:: _images/aad-search-aad-resource.png
+.. image:: ../_images/aad-search-aad-resource.png
 
 Next, click on **App registrations** on the navigation page to the left:
 
-.. image:: _images/aad-app-registration-nav-pane.png
+.. image:: ../_images/aad-app-registration-nav-pane.png
 
 Click on **New Registration**
 
-.. image:: _images/aad-app-registration-new.png
+.. image:: ../_images/aad-app-registration-new.png
 
 .. _azure-api-linking-application-name:
 
@@ -38,7 +38,7 @@ else as default. Once done, click on the **Register** button.
 
 Once completed, take note of the client id as you will need to supply this value to BlueButtonPRO later:
 
-.. image:: _images/aad-app-client-id-note.png
+.. image:: ../_images/aad-app-client-id-note.png
 
 .. _azure-api-linking-client-secret:
 
@@ -47,7 +47,7 @@ the navigation pane on the left. Then at the bottom, click on **+ New client sec
 should appear. Enter in a description for this secret, such as "BlueButtonPRO API Secret". Set the expiration
 to **Never**. This is how it should look like at this point:
 
-.. image:: _images/aad-app-registration-new-secret.png
+.. image:: ../_images/aad-app-registration-new-secret.png
 
 Once done, click on the **Add** button. At this point, copy the secret value as it will not be displayed
 in its entirety again. Store this somewhere for now as it will be needed later.
@@ -64,15 +64,15 @@ Navigate to your Azure API for FHIR instance. This can be done by searching for 
 in the search box at the top of the screen. Once your instance has been selected, click on the **Access control (IAM)**
 item on the navigation pane to the left:
 
-.. image:: _images/aad-fhir-server-access-control-iam.png
+.. image:: ../_images/aad-fhir-server-access-control-iam.png
 
 Click on the **Role assignments** tab:
 
-.. image:: _images/aad-fhir-server-role-assignments.png
+.. image:: ../_images/aad-fhir-server-role-assignments.png
 
 Click on the **Add** button at the top of the section and then click on **Add role assignment**:
 
-.. image:: _images/aad-fhir-server-add-role-assignment.png
+.. image:: ../_images/aad-fhir-server-add-role-assignment.png
 
 A pane should have opened up to the right. For the **Role** section, at this time we require the **FHIR
 Data Writer** role only. It should not be too far down the drop down list, but you can always search
@@ -83,7 +83,7 @@ Once the application shows up in the search result list, make sure you click on 
 that it comes below down to the **Selected members** section. This is how the pane should look like
 at this point:
 
-.. image:: _images/aad-fhir-server-role-completion.png
+.. image:: ../_images/aad-fhir-server-role-completion.png
 
 Once completed, click on the **Save** button.
 

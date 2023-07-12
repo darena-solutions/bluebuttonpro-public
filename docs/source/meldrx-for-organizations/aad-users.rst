@@ -26,7 +26,7 @@ When an administrator of the organization first logs into our system using their
 credentials, it is recommended to consent to these permissions on behalf of the organization as illustrated
 below:
 
-.. image:: _images/aad-consent-screen.png
+.. image:: ../_images/aad-consent-screen.png
 
 If this checkbox is not checked, users of your application that are not administrators will not be able
 to login. It is possible to not consent on behalf of the organization and individually give consent
@@ -38,7 +38,7 @@ Before you or any users in your organization can login, the organization must fi
 our system. Only users that are global/company administrators of the organization can begin the process.
 We determine this by checking the "Global administrator" built-in role in Azure Active Directory.
 
-.. image:: _images/aad-global-admin-role.png
+.. image:: ../_images/aad-global-admin-role.png
 
 This role should be applied by default to the user that first created the directory. A user with this
 role must login by clicking the ``Microsoft`` button. Once the user has logged in the browser will be
