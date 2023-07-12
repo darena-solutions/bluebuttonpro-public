@@ -6,6 +6,12 @@ MeldRx is a platform through which healthcare data can be stored, managed, and a
 The platform is suitable for use by healthcare organizations for managing their patient data.
 Applications may be built on top of the platform to further enhance its utility.
 
+At a high level, MeldRx consists of the following components
+1. **Data Vault** A Data Vault for storing healthcare data. The Data Vault can store both structured and binary data.
+2. **Identity Management** A complete identity and access management system. Administrators, clinicians, and patients can register accounts within the system and access can be controlled accordingly.
+3. **APIs** The entire system may be accessed through a comprehensive set of APIs.
+4. **Apps** Apps can be built on top of MeldRx to further enhance the system and widen its capabilities.
+
 ## Who Uses MeldRx?
 
 ### Health Systems
