@@ -31,7 +31,6 @@ the :doc:`suggestions-and-bugs` page.
    meldrx-for-organizations/grants
    meldrx-for-organizations/invite
    meldrx-for-organizations/directory-listing
-   meldrx-for-organizations/cms-login
    meldrx-for-organizations/aad-users
    meldrx-for-organizations/azure-api-linking
 
