@@ -1,4 +1,4 @@
-# MeldRx App
+# Admin App
 
 The _MeldRx App_ is the frontend through which a MeldRx instance is configured and administrated.
 The app is a web-based tool that allows administrators to manage users, set permissions, and configure settings.

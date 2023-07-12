@@ -17,18 +17,33 @@ the :doc:`suggestions-and-bugs` page.
    :maxdepth: 4
    :caption: MeldRx Overview
 
-   meldrx/overview
+   meldrx/introduction
    meldrx/data-vault
-   meldrx/meldrx-app
-   meldrx/patient-access
-   meldrx/meldrx-apis
-   meldrx/apps
+   meldrx/identity-management
+   meldrx/apis
 
 .. toctree::
    :maxdepth: 4
-   :caption: MeldRx API
+   :caption: MeldRx for Organizations
 
-   meldrx-api/intro
+   meldrx-for-organizations/admin-app
+   meldrx-for-organizations/apps
+
+.. toctree::
+   :maxdepth: 4
+   :caption: MeldRx for Patients
+
+   meldrx-for-patients/patient-access
+   meldrx-for-patients/synapse
+
+.. toctree::
+   :maxdepth: 4
+   :caption: MeldRx for Developers
+
+   meldrx-for-developers/getting-started
+   meldrx-for-developers/sandboxes
+   meldrx-for-developers/apps
+   meldrx-for-developers/fhir-tools
 
 .. toctree::
    :maxdepth: 2
@@ -43,21 +58,6 @@ the :doc:`suggestions-and-bugs` page.
    cms-login
    aad-users
    azure-api-linking
-
-.. toctree::
-   :maxdepth: 4
-   :caption: MeldRx for Patients
-
-   meldrx-patients/synapse
-
-.. toctree::
-   :maxdepth: 4
-   :caption: MeldRx for Developers
-
-   dev-portal/getting-started
-   dev-portal/sandboxes
-   dev-portal/apps
-   dev-portal/fhir-tools
 
 .. toctree::
    :maxdepth: 4

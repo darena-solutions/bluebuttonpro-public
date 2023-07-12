@@ -1,4 +1,4 @@
-# MeldRx APIs
+# APIs
 
 MeldRx includes a whole suite of APIs that are used to access and interact with the MeldRx ecosystem.
 
