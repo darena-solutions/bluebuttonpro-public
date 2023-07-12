@@ -5,7 +5,7 @@ Azure Active Directory Users
 External authentication with Azure Active Directory is supported. Simply click on the ``Microsoft``
 button.
 
-.. image:: _images/aad-login-btn.png
+.. image:: ../_images/aad-login-btn.png
 
 This will direct the browser to Azure Active Directory where you will enter in your credentials.
 
