@@ -13,7 +13,7 @@ At a high level, MeldRx consists of the following components
 4. **Apps** Apps can be built on top of MeldRx to further enhance the system and widen its capabilities.
 
 <div>
-    <img src="../_images/meldrx-components.webp" style="background-color:#444444; padding:20px; border-radius:10px;" />
+    <img src="../_images/meldrx-components.webp" style="background-color:#343131; padding:20px; border-radius:10px;" />
 </div><div style="padding-bottom:20px;">
 
 ## Who Uses MeldRx?
