@@ -1,5 +1,7 @@
 # MeldRx API
 
+.. _header-values:
+
 ## Header Values
 
 In many of the API requests, a header value is typically required to indicate which FHIR server the

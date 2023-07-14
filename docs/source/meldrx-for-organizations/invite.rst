@@ -1,3 +1,4 @@
+.. _invite:
 Invites
 =======
 
@@ -80,7 +81,7 @@ accessiblePatientIdentifierSearchStr
       The search must result in only one patient. If more than one patient is found by executing the search,
       an error will be returned by the API.
 
-In addition to the body of the request, a :doc:`FHIR server context <header-values>` header is required.
+In addition to the body of the request, a :ref:`FHIR server context <header-values>` header is required.
 
 Once all this information is obtained, a request can be constructed:
 
@@ -154,7 +155,7 @@ accessiblePatientId
 accessiblePatientIdentifierSearchStr
    See :ref:`accessiblePatientIdentifierSearchStr <invite-accessible-patient-identifier-search-str>`.
 
-In addition to the body of the request, a :doc:`FHIR server context <header-values>` header is required.
+In addition to the body of the request, a :ref:`FHIR server context <header-values>` header is required.
 
 .. note::
 
@@ -354,7 +355,7 @@ Searching For Sent Invites
 --------------------------
 
 An organization can search for the invites that they have sent. The organization will need to indicate
-which FHIR server to search with by specifying a :doc:`FHIR server context <header-values>` header.
+which FHIR server to search with by specifying a :ref:`FHIR server context <header-values>` header.
 The request can be constructed like this:
 
 .. code-block:: console

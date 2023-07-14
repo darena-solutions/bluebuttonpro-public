@@ -4,7 +4,7 @@ Getting Started
 To get started with the BlueButtonPRO platform, you must first contact our sales department. During
 that process, they will have created a new organization for you and will have created a user account
 that will be listed as the administrator of that organization. A FHIR server will also be provisioned
-for this organization. This data will be created in our sandbox :doc:`environment <environments>`. An
+for this organization. This data will be created in our sandbox environment. An
 account and one or more organizations may also be provisioned for you in our production environment
 by our sales team. However, use of the production environment will need approval. Refer to the :ref:`getting-started-production-submit-for-review`
 section for more information. You will typically test and play around with our platform in the sandbox
@@ -103,7 +103,7 @@ see a popup that contains your client secret. It is important that you take this
 in a secure location. Once the popup is closed, this secret can no longer be obtained. If the secret
 is lost or forgotten, a new secret will need to be generated.
 
-At this point, your application can begin using the BlueButtonPRO API in the :doc:`sandbox environment <environments>`.
+At this point, your application can begin using the BlueButtonPRO API in the sandbox environment.
 The homepage should be updated to reflect that you have added an application, and your client ID should
 be visible. You must use this client id to authenticate with our identity provider.
 
@@ -134,8 +134,7 @@ This reason can also be viewed in the developer portal (https://developer.darena
 reason can be viewed in the developer portal by clicking on the yellow button with the warning icon.
 Further modification of the application will be necessary before it can move to production.
 
-If the application was approved, then this application can now be used in the :doc:`production environment
-<environments>`. If the application is a private application, then the email will include the secret
+If the application was approved, then this application can now be used in the production environment. If the application is a private application, then the email will include the secret
 that was generated. It is important to note that this secret will be different from your sandbox secret
 for that client. The secret should be stored in a secure location and it is recommended to delete the
 email permanently after this is done.

@@ -7,7 +7,12 @@ MeldRx Documentation
 ===========================
 Welcome to the MeldRx documentation. Use this documentation to understand our major concepts
 and how to work with the MeldRx API. If you have any questions or suggestions, please review
-the :doc:`suggestions-and-bugs` page.
+the `suggestions-and-bugs` page.
+
+.. toctree::
+   :hidden:
+
+   _hidden/getting-started
 
 .. toctree::
    :maxdepth: 2
@@ -53,7 +58,7 @@ the :doc:`suggestions-and-bugs` page.
    :caption: SDK & Tools
 
    sdk-and-tools/meldrx-sdk
-   sdk-and-tools/app-builder   
+   sdk-and-tools/app-builder
 
 .. toctree::
    :maxdepth: 4

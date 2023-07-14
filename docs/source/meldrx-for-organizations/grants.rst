@@ -1,3 +1,5 @@
+.. _grants:
+
 Grants
 ======
 
@@ -33,7 +35,7 @@ Administrator
    and owners. Creating additional grants to the FHIR server requires an administrator for example.
 
 Write
-   This role allows the user to read and write data from the FHIR server. :doc:`Organization invites
+   This role allows the user to read and write data from the FHIR server. :ref:`Organization invites
    <invite>` and other various functionality that requires writes can also be performed with this role.
 
 Read
@@ -42,10 +44,10 @@ Read
 
 Synapse
    This is currently the lowest permission among all the roles. It is a very specific role that only
-   allows an entity to send :doc:`synapse packages <synapse>` to the organization that owns the FHIR
+   allows an entity to send :ref:`synapse packages <synapse>` to the organization that owns the FHIR
    server listed in the grant. The entity that has a grant with this role will not be able to perform
    any action on the listed FHIR server, not even reads. It should be noted that the other roles allow
-   the entity to send :doc:`synapse packages <synapse>` as well.
+   the entity to send :ref:`synapse packages <synapse>` as well.
 
 .. _grants-inherited-roles:
 
@@ -57,7 +59,7 @@ all users of that organization will inherit the ``Write`` role. This means that 
 of that organization can read, create, update, or delete records in the FHIR server specified in the
 grant.
 
-Another situation is when a grant is given to a :doc:`person <person>` resource. In this situation all
+Another situation is when a grant is given to a :ref:`person <person>` resource. In this situation all
 users that have access to that person inherit the role that the user has with that person. EG: If the
 user has write permissions to the person, then they also have write permissions to the FHIR server specified
 in the grant.
@@ -82,11 +84,13 @@ User
    necessary that a few individuals in that organization require the ``Administrator`` role. In this
    case, separate grants for each individual user will need to be :ref:`created <grants-creating-grants>`.
 
+.. _person:
+
 Person
-   Grants can be applied to :doc:`person <person>` resources. In this case, all users that have an association
+   Grants can be applied to :ref:`person <person>` resources. In this case, all users that have an association
    with this person will also have access to the FHIR server specified in the grant. Typically, grants
    to person resources are created for restricted patient access to a FHIR server, this is done through
-   the :doc:`organization invite process <invite>`.
+   the :ref:`organization invite process <invite>`.
 
 Organization
    When a grant is applied to an organization, all users of that organization will also have access
@@ -98,11 +102,11 @@ Application
    Typically in most scenarios, a user will log into the BlueButtonPRO system and then interact with
    the system using this context. However, it may be necessary for some vendors where they manager their
    own users. In this case, the vendor will have registered an application for API access without user
-   context. Review the :doc:`get started <getting-started>` guide to understand how these applications
+   context. Review the get started guide to understand how these applications
    can be registered.
 
    .. note::
-      
+
       At this time, only a member of Darena Solutions can create grants for applications.
 
 ExternalApplication
@@ -125,7 +129,7 @@ There are some situations where a grant is created by default:
   means that all users of that organization can now access that FHIR server and they have the :ref:`inherited 
   role <grants-inherited-roles>` of ``Write``.
 
-* When a user accepts an :doc:`organization invite <invite>` for a person, a grant is created automatically
+* When a user accepts an :ref:`organization invite <invite>` for a person, a grant is created automatically
   linking that person with the organization's FHIR server with a ``Read`` or ``Synapse`` role. In addition
   the grant will :ref:`limit access to the patient resource <grants-restrict-access-to-patient>` that
   was specified in the organization invite.
@@ -146,10 +150,10 @@ the entity has ``Read`` or ``Synapse`` permissions only for that particular pati
 ``Read`` permissions, it indicates that only this patient and any related resources for that patient
 (EG: encounters, medications, etc.) can be read, and nothing else. For resources that are not patient-specific
 (EG: questionnaires, value sets, etc.) these are still accessible. If the entity has ``Synapse`` permissions,
-it indicates that the entity can create :doc:`synapse packages <synapse>` that contains FHIR resources
+it indicates that the entity can create :ref:`synapse packages <synapse>` that contains FHIR resources
 for only that particular patient.
 
-When accepting an :doc:`organization invite <invite>`, these types of grants are created automatically
+When accepting an :ref:`organization invite <invite>`, these types of grants are created automatically
 granting ``Read`` or ``Synapse`` permissions to the FHIR server to the specified entity with restricted
 access to a single patient.
 
@@ -185,7 +189,7 @@ role
    .. note::
 
       If the role is ``Synapse``, then ``accessiblePatientId`` is required. Additionally, when creating
-      a role for an :doc:`Azure FHIR server <azure-api-linking>`, the role **must** be set to ``Synapse``.
+      a role for an Azure FHIR server, the role **must** be set to ``Synapse``.
 
 accessiblePatientId
    If the entity should be restricted to a specific patient, then the id of the patient resource needs
@@ -235,7 +239,7 @@ Limitations
 
 * If ``role`` is ``Synapse``, then ``accessiblePatientId`` is required.
 
-* If a grant is being created for an :doc:`Azure FHIR server <azure-api-linking>`, then ``role`` must
+* If a grant is being created for an Azure FHIR server, then ``role`` must
   be set to ``Synapse``.
 
 * Only a member of Darena Solutions can create grants for an ``Application`` or ``ExternalApplication``.

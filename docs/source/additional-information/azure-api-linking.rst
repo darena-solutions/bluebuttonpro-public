@@ -9,7 +9,7 @@ token by using the ``client_credentials`` flow to communicate with the server.
    This guide assumes an Azure API for FHIR instance has already been provisioned and is ready for use
    in your Azure portal.
 
-Before continuing, ensure that you have reviewed the :doc:`getting-started` guide and that you have
+Before continuing, ensure that you have reviewed the `getting-started` guide and that you have
 a client application ready for use that can request access tokens for our platform. This will be required
 later to configure your Azure FHIR server with BlueButtonPRO.
 
@@ -109,7 +109,7 @@ Once the configuration is complete on the Azure Portal side, this information no
 into BlueButtonPRO. Before starting this section, ensure that you have registered your organization
 into our system. If you haven't done so, please review :ref:`azure-active-directory-users`. Additionally,
 the client application that will be used to request access tokens for our platform must also have been
-registered. Review the :doc:`getting-started` guide to learn more.
+registered. Review the `getting-started` guide to learn more.
 
 Obtain an access token with your client by logging in with your Azure Active Directory credentials.
 The endpoint to configure your FHIR server is https://api.bluebuttonpro.com/FhirServers/aadfhirrecord.
@@ -197,9 +197,9 @@ servers. Please review the following before using our platform:
 
 * `Bulk export <https://hl7.org/fhir/uv/bulkdata/index.html>`_ is not supported.
 
-* Sending :doc:`invites <invite>` and linking patients is supported.
+* Sending :ref:`invites <invite>` and linking patients is supported.
 
-* Sending, receiving, and importing :doc:`synapse packages <synapse>` is supported.
+* Sending, receiving, and importing :ref:`synapse packages <synapse>` is supported.
 
 * Any other operation with BlueButtonPRO is not expected to be supported (EG: There is no support for
   importing resources or uploading CCDA's). If there is a specific functionality that is desired, please

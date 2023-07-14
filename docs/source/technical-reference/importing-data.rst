@@ -30,7 +30,7 @@ patientId
 bundle
    This is the FHIR bundle resource in JSON representation that needs to be imported
 
-In addition to the body of the request, a :doc:`FHIR server context <header-values>` header is required.
+In addition to the body of the request, a :ref:`FHIR server context <header-values>` header is required.
 
 Once all this information is available, the request can be constructed:
 
@@ -83,7 +83,7 @@ keepEobs
    The EOB resource itself is not created in the FHIR server. In order to also keep the EOB resource
    and create it in the FHIR server, set this parameter to ``true``. It is ``false`` by default.
 
-In addition to the body of the request, a :doc:`FHIR server context <header-values>` header is required.
+In addition to the body of the request, a :ref:`FHIR server context <header-values>` header is required.
 Once all this information is available, the request can be constructed:
 
 .. code-block:: console
@@ -151,7 +151,7 @@ FHIR resource that is generated, or from the result of the background job. This 
 detail below.
 
 The endpoint to start importing CCDAs is https://api.bluebuttonpro.com/Import/ccda. This endpoint accepts
-a file as the sole parameter of the request body. In addition to the body of the request, a :doc:`FHIR
+a file as the sole parameter of the request body. In addition to the body of the request, a :ref:`FHIR
 server context <header-values>` header is required. This is how the request should look like:
 
 .. code-block:: console
@@ -331,7 +331,7 @@ keepEobs
    FHIR server. To keep the EOB and also create it in the FHIR server instead of discarding it, set
    this query parameter to ``true``.
 
-In addition to these query parameters, a :doc:`FHIR server context <header-values>` header is required.
+In addition to these query parameters, a :ref:`FHIR server context <header-values>` header is required.
 This indicates which FHIR server the resources should be created in. Once all this information is obtained
 the request can be made:
 
