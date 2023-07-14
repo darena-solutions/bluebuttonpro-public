@@ -12,10 +12,8 @@ At a high level, MeldRx consists of the following components
 3. **APIs** The entire system may be accessed through a comprehensive set of APIs.
 4. **Apps** Apps can be built on top of MeldRx to further enhance the system and widen its capabilities.
 
-.. image:: ../_images/meldrx-components.png
-
 <div>
-    <img src="../_images/meldrx-components" style="background-color:#343131; padding:20px; border-radius:10px;" />
+    <img src="../_images/meldrx-components.png" style="background-color:#343131; padding:20px; border-radius:10px;" />
 </div><div style="padding-bottom:20px;">
 
 ## Who Uses MeldRx?

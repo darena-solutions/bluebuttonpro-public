@@ -1,6 +1,10 @@
 Getting Started
 ===============
 
+Test Images (TODO: Put this here because otherwise Sphinx wouldn't include them)
+-------------
+.. image:: ../_images/meldrx-components.png
+
 To get started with the BlueButtonPRO platform, you must first contact our sales department. During
 that process, they will have created a new organization for you and will have created a user account
 that will be listed as the administrator of that organization. A FHIR server will also be provisioned
