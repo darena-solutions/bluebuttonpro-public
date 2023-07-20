@@ -30,6 +30,15 @@ the `suggestions-and-bugs` page.
 
 .. toctree::
    :maxdepth: 4
+   :caption: MeldRx for Developers
+
+   meldrx-for-developers/getting-started
+   meldrx-for-developers/developer-portal
+   meldrx-for-developers/tools
+   meldrx-for-developers/fhir-api-provider-guides
+
+.. toctree::
+   :maxdepth: 4
    :caption: MeldRx for Organizations
 
    meldrx-for-organizations/admin-app
@@ -43,15 +52,6 @@ the `suggestions-and-bugs` page.
 
    meldrx-for-patients/patient-access
    meldrx-for-patients/synapse
-
-.. toctree::
-   :maxdepth: 4
-   :caption: MeldRx for Developers
-
-   meldrx-for-developers/getting-started
-   meldrx-for-developers/developer-portal
-   meldrx-for-developers/tools
-   meldrx-for-developers/fhir-api-provider-guides
 
 .. toctree::
    :maxdepth: 4

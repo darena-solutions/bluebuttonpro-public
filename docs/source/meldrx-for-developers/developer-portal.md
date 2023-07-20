@@ -43,3 +43,13 @@ An App is any application that needs to connect to a FHIR server to read and/or 
 ### Creating an App
 
 ### Linked Apps
+
+#### Creating a Linked App
+NOTE: See our EHR Guides for help with this
+
+#### Linked App Configuration
+
+### Developing Your App
+When you use MeldRx, the complexity of SMART-on-FHIR is completely abstracted away.
+
+### Testing Your App
