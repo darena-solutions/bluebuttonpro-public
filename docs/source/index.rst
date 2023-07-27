@@ -68,6 +68,7 @@ the `suggestions-and-bugs` page.
    technical-reference/importing-data
    technical-reference/meldrx-sandbox
    technical-reference/meldrx-api
+   technical-reference/ehr-guides
 
 .. toctree::
    :maxdepth: 2
