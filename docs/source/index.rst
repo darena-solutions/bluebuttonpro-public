@@ -32,6 +32,7 @@ the `suggestions-and-bugs` page.
    :maxdepth: 4
    :caption: MeldRx for Developers
 
+   meldrx-for-developers/why-use-meldrx
    meldrx-for-developers/getting-started
    meldrx-for-developers/developer-portal
    meldrx-for-developers/tools
