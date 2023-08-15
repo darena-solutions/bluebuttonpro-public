@@ -23,6 +23,7 @@ For patient/clinician apps, you need to specify a redirect URL.
 
 #### Sample Patients
 - Jason Argonaut
+    - FHIR ID: `eD.LxhDyX35TntF77l7etUA3`
     - MRN: `203675`
     - First Name: `Jason`
     - Last Name: `Argonaut`
