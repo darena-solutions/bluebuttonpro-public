@@ -67,7 +67,7 @@ the `suggestions-and-bugs` page.
 
    technical-reference/definitions
    technical-reference/importing-data
-   technical-reference/meldrx-sandbox
+   technical-reference/meldrx-workspace
    technical-reference/meldrx-api
    technical-reference/ehr-guides
 
