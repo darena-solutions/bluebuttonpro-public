@@ -81,3 +81,20 @@ For patient/clinician apps, you need to specify a redirect URL.
 - Patient Portal: `timmysmart` / `Cerner01`
 - Patient Portal: `haileysmart` / `Cerner01`
 - Patient Portal: `timApeters` / `Cerner01`
+
+
+## AthenaHealth
+
+### Create an App with AthenaHealth
+1. Create an account on [https://developer.api.athena.io/ams-portal/apps](https://developer.api.athena.io/ams-portal/apps)
+
+
+
+## NextGen
+
+### Create an App with NextGen
+1. Create an account on [https://developer.nextgen.com/](https://developer.nextgen.com/)
+
+
+https://www.nextgen.com/patient-access-api
+(Includes Sandbox URL)

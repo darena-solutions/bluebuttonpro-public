@@ -36,7 +36,6 @@ the `suggestions-and-bugs` page.
    meldrx-for-developers/getting-started
    meldrx-for-developers/developer-portal
    meldrx-for-developers/tools
-   meldrx-for-developers/fhir-api-provider-guides
 
 .. toctree::
    :maxdepth: 4
