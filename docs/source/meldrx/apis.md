@@ -22,6 +22,24 @@ Used for managing the apps associated with your account.
 ## FHIR
 MeldRx includes a complete FHIR API.
 
+### FHIR Operations
+In addition to the standard FHIR API, we provide several _FHIR Operations_ which are useful for gathering more specific data about patients. This list will continue to grow as needs arise.
+
+**Operations**
+- /Labs
+- /Vitals
+- /SmokingStatus
+- /Height
+- /Weight
+- /BloodPressure
+- /Cholesterol
+- /Glucose
+- /HemoglobinA1c
+- /BloodOxygenSaturation
+- /BodyTemperature
+- /HeartRate
+- /RespiratoryRate
+
 ## Import
 Used for importing data.
 

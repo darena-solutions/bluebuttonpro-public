@@ -23,10 +23,10 @@ the `suggestions-and-bugs` page.
    :caption: MeldRx Overview
 
    meldrx/introduction
+   meldrx/workspace
    meldrx/data-vault
    meldrx/identity-management
    meldrx/apis
-   meldrx/apps
 
 .. toctree::
    :maxdepth: 4
@@ -36,6 +36,21 @@ the `suggestions-and-bugs` page.
    meldrx-for-developers/getting-started
    meldrx-for-developers/developer-portal
    meldrx-for-developers/tools
+   meldrx-for-developers/developing-your-app
+   meldrx-for-developers/testing-your-app
+
+.. toctree::
+   :maxdepth: 4
+   :caption: SDK & Tools
+
+   sdk-and-tools/app-builder
+   sdk-and-tools/meldrx-sdk
+
+.. toctree::
+   :maxdepth: 4
+   :caption: Developer Reference
+
+   developer-reference/ehr-guides
 
 .. toctree::
    :maxdepth: 4
@@ -55,20 +70,11 @@ the `suggestions-and-bugs` page.
 
 .. toctree::
    :maxdepth: 4
-   :caption: SDK & Tools
-
-   sdk-and-tools/meldrx-sdk
-   sdk-and-tools/app-builder
-
-.. toctree::
-   :maxdepth: 4
    :caption: Technical Reference
 
    technical-reference/definitions
    technical-reference/importing-data
-   technical-reference/meldrx-workspace
    technical-reference/meldrx-api
-   technical-reference/ehr-guides
 
 .. toctree::
    :maxdepth: 2

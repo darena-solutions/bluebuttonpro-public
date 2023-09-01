@@ -1,5 +1,23 @@
 # EHR Guides
 
+When registering an application with an EHR, you will need to specify a redirect URL if you choose a patient-facing or clinician-facing app. In order to make your app compatible with MeldRx, you must set one of your redirect URLs to `https://app.meldrx.com/sof-callback`.
+
+___
+## SMART-Health-IT
+
+SMART-Health-IT provides a FHIR server that is excellent to use for testing and doesn't require any authentication.
+
+### Sandbox Details
+- FHIR Server: [https://launch.smarthealthit.org/v/r4/fhir](https://launch.smarthealthit.org/v/r4/fhir)
+
+#### Sample Patients
+- Gerardo Botello
+    - First Name: `Gerardo`
+    - Last Name: `Botello`
+    - Date of Birth: `2010-09-07`
+    - Gender: `M`
+    - Postal Code: `02215`
+___
 ## Epic
 
 ### Create An App with Epic
@@ -10,13 +28,6 @@
 For backend apps, follow the instructions here to generate a key pair Or, run the following commands:
 - `openssl genrsa -out /path_to_key/privatekey.pem 2048`
 - `openssl req -new -x509 -key /path_to_key/privatekey.pem -out /path_to_key/publickey509.pem -subj '/CN=myapp'`
-
-#### Patient/Clinician Apps
-For patient/clinician apps, you need to specify a redirect URL.
-
-### Tips
-- It can take up to 24 hours for your Client ID to activate
-- It's recommended to make an app specifically for testing in addition to an app you'll use for production
 
 ### Sandbox Details
 - FHIR Server: [https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4](https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4)
@@ -50,6 +61,7 @@ For patient/clinician apps, you need to specify a redirect URL.
 - Patient Portal: `fhirelijah` / `epicepic1`
 - EHR: `FHIR` / `EpicFhir11!`
 
+___
 ## Cerner
 
 ### Create an App with Cerner
@@ -83,18 +95,21 @@ For patient/clinician apps, you need to specify a redirect URL.
 - Patient Portal: `timApeters` / `Cerner01`
 
 
+___
 ## AthenaHealth
 
 ### Create an App with AthenaHealth
 1. Create an account on [https://developer.api.athena.io/ams-portal/apps](https://developer.api.athena.io/ams-portal/apps)
 
+### Sandbox Details
+- FHIR Server:
 
-
+___
 ## NextGen
 
 ### Create an App with NextGen
 1. Create an account on [https://developer.nextgen.com/](https://developer.nextgen.com/)
 
-
-https://www.nextgen.com/patient-access-api
-(Includes Sandbox URL)
+### Sandbox Details
+- FHIR Server:
+    - [https://www.nextgen.com/patient-access-api](https://www.nextgen.com/patient-access-api)
