@@ -5,7 +5,7 @@ When registering an application with an EHR, you will need to specify a redirect
 ___
 ## SMART-Health-IT
 
-SMART-Health-IT provides a FHIR server that is excellent to use for testing and doesn't require any authentication. 
+SMART-Health-IT provides a FHIR server that is excellent to use for testing and doesn't require any authentication.
 
 ### Sandbox Details
 - FHIR Server: [https://launch.smarthealthit.org/v/r4/fhir](https://launch.smarthealthit.org/v/r4/fhir)
